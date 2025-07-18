@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="vi" th:fragment="layout" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title>Lam Duyen</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" th:href="@{/css/lalin.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750419936/xkztap7wz2xxzi86flwx.jpg"
+          type="image/png"/>
+    <style>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Saira Condensed', sans-serif;
+            background: linear-gradient(to bottom right, #fffaf6, #fcefe3);
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        header.header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        header.header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #00c6ff, #ff6a88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        header.header p {
+            font-size: 1.4rem;
+            color: #7b8a97;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        .viewer-controls {
+            text-align: center;
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .viewer-controls button {
+            background: linear-gradient(135deg, #ffdecf, #ffe4b5);
+            border: none;
+            color: #3e2c1c;
+            padding: 12px 28px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 175, 123, 0.4);
+            transition: all 0.3s ease-in-out;
+            position: relative;
+        }
+
+        .viewer-controls button::before {
+            content: '✨';
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+        }
+
+        .viewer-controls button:hover {
+            background: linear-gradient(135deg, #ffd7b5, #fff2d2);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 6px 20px rgba(255, 148, 80, 0.35);
+        }
+
+        .jsv-holder {
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 16px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.3));
+            box-shadow:
+                0 8px 20px rgba(0, 0, 0, 0.15),
+                0 0 15px rgba(255, 200, 180, 0.3),
+                inset 0 0 10px rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            animation: zoomIn 0.6s ease;
+        }
+
+        .jsv-holder:hover {
+            transform: scale(1.015);
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.2),
+                0 0 25px rgba(255, 190, 160, 0.4),
+                inset 0 0 15px rgba(255, 255, 255, 0.6);
+        }
+
+        .jsv-holder::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+            transform: rotate(25deg);
+            animation: scanLight 6s infinite linear;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .jsv-holder img {
+            width: 100%;
+            border-radius: 14px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .jsv-holder img:hover {
+            transform: scale(1.02);
+        }
+
+        .rotate-icon {
+            position: absolute;
+            top: 50%;
+            width: 50px;
+            height: 50px;
+            transform: translateY(-50%);
+            opacity: 0.85;
+            filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.3));
+        }
+
+        .rotate-icon.left {
+            left: -70px;
+        }
+
+        .rotate-icon.right {
+            right: -70px;
+        }
+
+        .rotate-icon img {
+            width: 100%;
+            animation: rotatePulse 4s infinite;
+        }
+
+        @keyframes rotatePulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes zoomIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes scanLight {
+            0% {
+                transform: translateX(-100%) rotate(25deg);
+            }
+            100% {
+                transform: translateX(100%) rotate(25deg);
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .jsv-holder {
+                width: 90%;
+            }
+
+            header.header h1 {
+                font-size: 2.2rem;
+            }
+
+            .viewer-controls button {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+
+            .rotate-icon.left {
+                left: -40px;
+            }
+
+            .rotate-icon.right {
+                right: -40px;
+            }
+        }
+    </style>
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/@3dweb/360javascriptviewer/lib/JavascriptViewer.min.js"></script>
+</head>
+<body>
+<th:block th:replace="layout/user-layout :: layout">
+    <th:block th:fragment="pageContent">
+        <div class="container">
+            <div></div>
+            <header class="header">
+                <h1>Xem sản phẩm 360 với mọi góc độ</h1>
+                <p>Xoay, phóng to, thu nhỏ sản phẩm để tận hưởng từng đường nét của những chiếc áo dài!</p>
+            </header>
+
+            <div class="viewer-controls">
+                <button onclick="switchViewer(0)">Vân Sương</button>
+                <button onclick="switchViewer(1)">Phấn Vân</button>
+                <button onclick="switchViewer(2)">Tuyết Cầm</button>
+                <button onclick="switchViewer(3)">Thiều Hoa</button>
+            </div>
+
+            <div id="viewer-container"></div>
+        </div>
+    </th:block>
+</th:block>
+
+<script>
+    const viewers = [
+        {
+            imageUrlFormat: 'https://ao-dai-v2-low.s3.dualstack.us-east-1.amazonaws.com/B%E1%BB%98%201/x.jpg',
+            totalFrames: 66,
+            initialSrc: 'https://ao-dai-v2-low.s3.dualstack.us-east-1.amazonaws.com/B%E1%BB%98%201/1.jpg'
+        },
+        {
+            imageUrlFormat: 'https://ao-dai-v2-low.s3.dualstack.us-east-1.amazonaws.com/B%E1%BB%98%202/x.jpg',
+            totalFrames: 63,
+            initialSrc: 'https://ao-dai-v2-low.s3.dualstack.us-east-1.amazonaws.com/B%E1%BB%98%202/1.jpg'
+        },
+        {
+            imageUrlFormat: 'https://ao-dai-v2-low.s3.dualstack.us-east-1.amazonaws.com/B%E1%BB%98%203/x.jpg',
+            totalFrames: 62,
+            initialSrc: 'https://ao-dai-v2-low.s3.dualstack.us-east-1.amazonaws.com/B%E1%BB%98%203/1.jpg'
+        },
+        {
+            imageUrlFormat: 'https://ao-dai-v2-low.s3.dualstack.us-east-1.amazonaws.com/B%E1%BB%98%204/x.jpg',
+            totalFrames: 61,
+            initialSrc: 'https://ao-dai-v2-low.s3.dualstack.us-east-1.amazonaws.com/B%E1%BB%98%204/1.jpg'
+        }
+    ];
+
+    window.switchViewer = function(index) {
+        const viewerContainer = document.getElementById('viewer-container');
+        if (!viewerContainer) return;
+        viewerContainer.innerHTML = '';
+
+        const container = document.createElement('div');
+        container.id = 'jsv-holder';
+        container.className = 'jsv-holder';
+
+        const img = document.createElement('img');
+        img.id = 'jsv-image';
+        img.alt = `360 images set ${index + 1}`;
+        img.src = viewers[index].initialSrc;
+        container.appendChild(img);
+
+        const leftIcon = document.createElement('div');
+        leftIcon.className = 'rotate-icon left';
+        leftIcon.innerHTML = '<img src="/assets/img/360.png" alt="Rotate Left">';
+
+        const rightIcon = document.createElement('div');
+        rightIcon.className = 'rotate-icon right';
+        rightIcon.innerHTML = '<img src="/assets/img/360.png" alt="Rotate Right">';
+
+        container.appendChild(leftIcon);
+        container.appendChild(rightIcon);
+
+        viewerContainer.appendChild(container);
+
+        try {
+            const jsv = new JavascriptViewer({
+                elementId: 'jsv-holder',
+                imageUrlFormat: viewers[index].imageUrlFormat,
+                totalFrames: viewers[index].totalFrames,
+                zoom: true,
+                zoomMax: 10,
+                zoomWheelSpeed: 15
+            });
+
+            jsv.start()
+                .then(() => console.log(`Viewer ${index + 1} started`))
+                .catch((e) => console.error(`Failed loading viewer ${index + 1}: ${e}`));
+        } catch (e) {
+            console.error(`Error initializing viewer ${index + 1}: ${e}`);
+        }
+    };
+
+    window.addEventListener('load', () => {
+        switchViewer(0);
+    });
+</script>
+</body>
+</html>

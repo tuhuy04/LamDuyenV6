@@ -1,0 +1,143 @@
+<th:block th:fragment="top">
+    <div class="mainHeader--height header-desktop">
+
+        <div class="header-main">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                        <div class="header-logo">
+                            <a href="/">
+                                <img src="/assets/img/19047985.png"
+                                     alt="LaLin"/>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12" style="position: static">
+                        <div class="header-nav">
+                            <ul class="header-nav__list">
+                                <div style="display: none">san-pham san-pham</div>
+
+                                <li class="item-nav nav-mega ">
+                                    <a th:href="@{/index}" class="">
+                                        <span class="title-nav"> Trang Chủ </span>
+                                    </a>
+                                </li>
+
+                                <li class="item-nav nav-mega ">
+                                    <a th:href="@{/product/list}" class="">
+                                        <span class="title-nav">sản phẩm</span>
+                                    </a>
+                                    <div class="mega-contain mega-contain-danhmuc">
+                                        <div class="mega-wrapper">
+                                            <div class="mega-link">
+                                                <ul class="mega-sub">
+                                                    <li class="mega-col">
+                                                        <a href="/collections/ao-dai-1" class="title-b">Áo
+                                                            Dài Nữ</a>
+                                                    </li>
+
+                                                    <li class="mega-col">
+                                                        <a href="/collections/ao-1" class="title-b">Áo Dài Nam</a>
+                                                    </li>
+                                                    <li class="mega-col">
+                                                        <a href="/collections/phu-kien-1" class="title-b">Phụ
+                                                            Kiện</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="mega-image">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-nav nav-mega ">
+                                    <a th:href="@{/tryOn}" class="">
+                                        <span class="title-nav">Thử đồ</span>
+                                    </a>
+                                </li>
+
+                                <li class="item-nav nav-mega ">
+                                    <a th:href="@{/display360}" class="">
+                                        <span class="title-nav">Trưng bày 360</span>
+                                    </a>
+                                </li>
+
+                                <li class="item-nav nav-child">
+                                    <a th:href="@{/introduction}" class="">
+                                        <span class="title-nav">Về Lam Duyên</span>
+                                    </a>
+                                </li>
+
+                                <li th:if="${#authorization.expression('isAuthenticated()')}" class="item-nav nav-cart">
+                                    <a th:href="@{/client/cart}">
+                                        <span class="cart-icon-mb">
+                                            <svg width="19" height="20" viewBox="0 0 19 20" fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                        d="M7.125 16.875C7.125 17.1222 7.05535 17.3639 6.92487 17.5695C6.79439 17.775 6.60892 17.9352 6.39194 18.0299C6.17495 18.1245 5.93618 18.1492 5.70583 18.101C5.47548 18.0527 5.26389 17.9337 5.09781 17.7589C4.93174 17.5841 4.81864 17.3613 4.77282 17.1189C4.727 16.8764 4.75051 16.6251 4.84039 16.3966C4.93027 16.1682 5.08248 15.973 5.27776 15.8357C5.47304 15.6983 5.70263 15.625 5.9375 15.625C6.25244 15.625 6.55449 15.7567 6.77719 15.9911C6.99989 16.2255 7.125 16.5435 7.125 16.875ZM13.6562 15.625C13.4214 15.625 13.1918 15.6983 12.9965 15.8357C12.8012 15.973 12.649 16.1682 12.5591 16.3966C12.4693 16.6251 12.4457 16.8764 12.4916 17.1189C12.5374 17.3613 12.6505 17.5841 12.8166 17.7589C12.9826 17.9337 13.1942 18.0527 13.4246 18.101C13.6549 18.1492 13.8937 18.1245 14.1107 18.0299C14.3277 17.9352 14.5131 17.775 14.6436 17.5695C14.7741 17.3639 14.8438 17.1222 14.8438 16.875C14.8438 16.5435 14.7186 16.2255 14.4959 15.9911C14.2732 15.7567 13.9712 15.625 13.6562 15.625ZM17.1928 5.80859L15.0753 13.0516C14.9644 13.4355 14.7389 13.7716 14.4322 14.01C14.1255 14.2484 13.754 14.3764 13.3727 14.375H6.23957C5.85287 14.3735 5.47705 14.2401 5.16838 13.9949C4.85971 13.7497 4.6348 13.4059 4.52734 13.0148L1.84211 3.125H0.59375C0.436278 3.125 0.285255 3.05915 0.173905 2.94194C0.0625556 2.82473 0 2.66576 0 2.5C0 2.33424 0.0625556 2.17527 0.173905 2.05806C0.285255 1.94085 0.436278 1.875 0.59375 1.875H1.84211C2.09995 1.8759 2.35058 1.96468 2.55649 2.12805C2.7624 2.29141 2.9125 2.52058 2.98434 2.78125L3.58625 5H16.625C16.7179 4.99996 16.8095 5.02288 16.8925 5.06691C16.9755 5.11094 17.0475 5.17485 17.1027 5.25351C17.1579 5.33216 17.1948 5.42336 17.2105 5.51977C17.2261 5.61618 17.2201 5.7151 17.1928 5.80859ZM15.8212 6.25H3.92543L5.66883 12.6719C5.7043 12.8024 5.77918 12.9172 5.88215 12.999C5.98513 13.0807 6.11059 13.125 6.23957 13.125H13.3727C13.4998 13.125 13.6235 13.0822 13.7257 13.0027C13.8279 12.9233 13.9032 12.8114 13.9405 12.6836L15.8212 6.25Z"
+                                                        fill="#66783e"></path>
+                                            </svg>
+                                            <span class="cart-count">1</span>
+                                        </span>
+                                    </a>
+                                </li>
+
+                                <!-- Thêm icon lịch sử mua hàng -->
+                                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+                                <li th:if="${#authorization.expression('isAuthenticated()')}" class="item-nav item-account">
+                                    <a th:href="@{/client/order/myhistory}" title="Lịch sử mua hàng">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;">
+                                            <circle cx="10" cy="10" r="9" stroke="#66783e" stroke-width="2" fill="none"/>
+                                            <path d="M10 5V10L13 13" stroke="#66783e" stroke-width="2" stroke-linecap="round"/>
+                                        </svg>
+                                    </a>
+                                </li>
+
+                                <li th:if="${#authorization.expression('isAuthenticated()')}"
+                                    class="item-nav item-account">
+                                    <a th:href="@{/client/profile}">
+                                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="11" cy="11" r="10" stroke="#66783e" stroke-width="2" fill="none"/>
+                                            <circle cx="11" cy="8.5" r="3" stroke="#66783e" stroke-width="2" fill="none"/>
+                                            <path d="M5.5 17C6.5 15 8.5 14 11 14C13.5 14 15.5 15 16.5 17" stroke="#66783e" stroke-width="2" stroke-linecap="round"/>
+                                        </svg>
+                                    </a>
+                                </li>
+
+                                <li th:if="${#authorization.expression('isAuthenticated()')}"
+                                    class="item-nav item-account">
+                                    <a th:href="@{/logout}">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                             stroke-linejoin="round" class="icon icon-tabler icons-tabler-logout">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"/>
+                                            <path d="M7 12h14l-4 -4m0 8l4 -4"/>
+                                        </svg>
+                                    </a>
+                                </li>
+
+                                <li th:if="${#authorization.expression('isAnonymous()')}" class="item-nav item-account">
+                                    <a th:href="@{/login}">
+                                        <svg width="22" height="21" viewBox="0 0 22 21" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                  d="M11 13.125C14.3827 13.125 17.125 10.3827 17.125 7C17.125 3.61726 14.3827 0.875 11 0.875C7.61723 0.875 4.87497 3.61726 4.87497 7C4.87497 10.3827 7.61723 13.125 11 13.125ZM11 14C14.866 14 18 10.866 18 7C18 3.13401 14.866 0 11 0C7.13398 0 3.99997 3.13401 3.99997 7C3.99997 10.866 7.13398 14 11 14Z"
+                                                  fill="#66783e"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                  d="M0.859157 20.9996C0.859202 20.9994 0.859254 20.9991 0.429561 20.8972C-0.000131505 20.7952 -6.79857e-05 20.7949 1.77457e-06 20.7946L0.000172552 20.7938L0.000627901 20.7917L0.00200095 20.7855L0.00665644 20.7651C0.0106313 20.748 0.0163807 20.724 0.0240861 20.6937C0.0394944 20.6329 0.0627409 20.5464 0.0952824 20.4378C0.160337 20.2207 0.262719 19.9148 0.414187 19.5496C0.716819 18.82 1.21751 17.8489 2.01193 16.8775C3.61168 14.9212 6.37431 13 11 13C15.6257 13 18.3883 14.9212 19.9881 16.8775C20.7825 17.8489 21.2832 18.82 21.5858 19.5496C21.7373 19.9148 21.8397 20.2207 21.9047 20.4378C21.9373 20.5464 21.9605 20.6329 21.9759 20.6937C21.9836 20.724 21.9894 20.748 21.9933 20.7651L21.998 20.7855L21.9994 20.7917L21.9998 20.7938L22 20.7946C22.0001 20.7949 22.0001 20.7952 21.5704 20.8972C21.1407 20.9991 21.1408 20.9994 21.1408 20.9996L21.1405 20.9981L21.1379 20.9866C21.1353 20.9756 21.1311 20.9578 21.125 20.9337C21.1128 20.8856 21.0932 20.8124 21.0648 20.7178C21.008 20.5284 20.9164 20.2537 20.7788 19.922C20.5034 19.258 20.0461 18.3709 19.321 17.4843C17.8818 15.7242 15.3592 13.9291 11 13.9291C6.64081 13.9291 4.11823 15.7242 2.67897 17.4843C1.9539 18.3709 1.49664 19.258 1.2212 19.922C1.08363 20.2537 0.99195 20.5284 0.935197 20.7178C0.906834 20.8124 0.887241 20.8856 0.875037 20.9337C0.868935 20.9578 0.864685 20.9756 0.862111 20.9866L0.859488 20.9981L0.859157 20.9996ZM21.1409 20.9999C21.1409 21 21.1409 21 21.1409 20.9999L21.1409 20.9999Z"
+                                                  fill="#66783e"></path>
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="vi" th:fragment="layout" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="revisit-after" content="1 day"/>
+    <meta name="HandheldFriendly" content="true">
+    <link rel="shortcut icon" href="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750419936/xkztap7wz2xxzi86flwx.jpg"
+          type="image/png"/>
+    <title>
+        Lam Duyen
+    </title>
+    <link rel="canonical" href=""/>
+    <link rel="alternate" href="" hreflang="vi-vn"/>
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <meta name="keywords" content="LaLin">
+    <meta name="robots" content="index,follow,noodp">
+    <link rel="preload" href="//theme.hstatic.net/200000066564/1001358455/14/slideshow_1.jpg?v=118" as="image"
+          media="(min-width: 768px)">
+    <link rel="preload" href="//theme.hstatic.net/200000066564/1001358455/14/slideshow_2_mobile.jpg?v=118" as="image"
+          media="(max-width: 767px)">
+
+
+    <link rel="preload" as="style" href="//theme.hstatic.net/200000066564/1001358455/14/styles.css?v=118">
+    <link rel="preload" href="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750419936/xkztap7wz2xxzi86flwx.jpg" as="image">
+    <link rel="preconnect" href="Saira+Condensed:wght@200;300;400;500;600&display=swap">
+    <link rel="preload" href="Saira+Condensed:wght@200;300;400;500;600&display=swap" as="style">
+
+    <link rel="stylesheet" th:href="@{/css/lalin.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@200;300;400;500;600&display=swap"
+          rel="stylesheet">
+    <style>
+        html, body {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+        }
+
+        .mySwiper {
+          width: 100%;
+          height: 100vh;
+        }
+
+        .swiper-slide {
+          text-align: center;
+          font-size: 18px;
+          background: #000;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .swiper-slide img,
+        .swiper-slide iframe {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .video-wrapper {
+          position: relative;
+          width: 100%;
+          height: 100%;
+        }
+
+        .video-wrapper iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+    </style>
+    <link href='//theme.hstatic.net/200000066564/1001358455/14/slick.css?v=118' rel='stylesheet' type='text/css'
+          media='all'/>
+    <link href='//theme.hstatic.net/200000066564/1001358455/14/slick-theme.css?v=118' rel='stylesheet' type='text/css'
+          media='all'/>
+
+    <link href="//theme.hstatic.net/200000066564/1001358455/14/styles.css?v=118" rel="preload stylesheet" as="style"
+          type="text/css">
+
+    <link href='//theme.hstatic.net/200000066564/1001358455/14/mixmatch.css?v=118' rel='stylesheet' type='text/css'
+          media='all'/>
+
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.8.36/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.8.36/plugin/customParseFormat.js"></script>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Lam Duyen"/>
+    <meta property="og:image" content="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750419936/xkztap7wz2xxzi86flwx.jpg"/>
+    <meta property="og:image:secure_url"
+          content="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750419936/xkztap7wz2xxzi86flwx.jpg"/>
+    <meta property="og:image:alt" content="Lam Duyen"/>
+    <meta property="og:url" content="https://lamduyen-gje5b9aad7fqebe5.eastasia-01.azurewebsites.net/"/>
+    <meta property="og:site_name" content="Lam Duyen"/>
+    <meta name="description" content=""/>
+    <meta name="google-site-verification" content="nyGhqUtDSCkVQTa8obOQbAiPvqlnzMqVbbkaqqLxQYU"/>
+    <script defer src='https://stats.hstatic.net/beacon.min.js' hrv-beacon-t='200000066564'></script>
+
+</head>
+
+
+<body>
+<th:block th:replace="layout/user-layout :: layout">
+    <th:block th:fragment="pageContent">
+        <h1 class="hidden entry-title">Lam Duyen</h1>
+
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+
+                <!-- Slide 1: VIDEO -->
+<!--                <div class="swiper-slide">-->
+<!--                    <div class="video-wrapper">-->
+<!--                        <iframe-->
+<!--                                src="https://player.vimeo.com/video/1090350367?autoplay=1&loop=1&muted=1&autopause=0&background=1"-->
+<!--                                frameborder="0"-->
+<!--                                allow="autoplay; fullscreen"-->
+<!--                                allowfullscreen-->
+<!--                        ></iframe>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+                <!-- Slide 2: IMAGE -->
+                <div class="swiper-slide">
+                    <img src="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750576077/k6ilfon8ilenwan5pvux.png" />
+                </div>
+
+                <!-- Slide 1: IMAGE -->
+                <div class="swiper-slide">
+                    <img src="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750576052/vcjyu3o7ckvxr6uu4tq5.png" />
+                </div>
+
+                <!-- Slide 3: IMAGE -->
+                <div class="swiper-slide">
+                    <img src="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750576090/nvfvjhynokobp8ikbbve.png" />
+                </div>
+
+                <!-- Slide 4: IMAGE -->
+                <div class="swiper-slide">
+                    <img src="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750576104/vpdkjwrxcreme1qs86hq.png" />
+                </div>
+
+                <!-- Slide 5: IMAGE -->
+                <div class="swiper-slide">
+                    <img src="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750576127/mtv6ahzx2qifsxnepq5m.png" />
+                </div>
+
+            </div>
+
+            <!-- Arrows -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+
+            <!-- Dots -->
+            <div class="swiper-pagination"></div>
+        </div>
+        
+        <div class="section-index home-product">
+<!--            <div class="container-fluid">-->
+<!--                <div class="section-home__head">-->
+<!--                    <h3 class="home__subtitle"></h3>-->
+<!--                    <h2 class="home__title">-->
+<!--                        SẢN PHẨM MỚI-->
+<!--                    </h2>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="gallery-container">-->
+<!--                <div class="section-home__content">-->
+<!--                    <div class="section-home__content">-->
+<!--                        <div class="home-product__list owl-carousel owl-theme style-nav row">-->
+<!--                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 pro-loop"-->
+<!--                                 th:each="product : ${products}">-->
+<!--                                <div class="product-block product-resize"-->
+<!--                                     th:id="'collection_loop_' + ${product.id}">-->
+<!--                                    <div class="product-img">-->
+<!--                                        <a th:href="@{/product/{id}(id=${product.id})}"-->
+<!--                                           th:title="${product.product_Name}" class="image-resize ratiobox">-->
+<!--                                            <picture>-->
+<!--                                                <source media="(max-width: 480px)"-->
+<!--                                                        th:data-srcset="@{${product.avatar}}"-->
+<!--                                                />-->
+<!--                                                <source media="(min-width: 481px) and (max-width: 767px)"-->
+<!--                                                        th:data-srcset="@{${product.avatar}}"-->
+<!--                                                />-->
+<!--                                                <source media="(min-width: 768px)"-->
+<!--                                                        th:data-srcset="@{${product.avatar}}"-->
+<!--                                                />-->
+<!--                                                <img th:src="@{${product.avatar}}"-->
+<!--                                                     class="lazyload img-loop"-->
+<!--                                                />-->
+<!--                                            </picture>-->
+<!--                                        </a>-->
+<!--                                    </div>-->
+<!--                                    <div class="product-detail clearfix">-->
+<!--                                        <div class="box-pro-detail">-->
+<!--                                            <div class="box-pro-title">-->
+<!--                                                <h3 class="pro-name">-->
+<!--                                                    <a th:href="@{/product/{id}(id=${product.id})}"-->
+<!--                                                       th:title="${product.product_Name}"><span-->
+<!--                                                            th:text="${product.product_Name}"></span></a>-->
+<!--                                                </h3>-->
+<!--                                            </div>-->
+<!--                                            <div class="box-pro-prices">-->
+<!--                                                <p class="pro-price">-->
+<!--                                                    <span th:text="${product.price} + '₫'"></span>-->
+<!--                                                </p>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+
+<!--        <div style="align: center">-->
+<!--            <div id="jsv-holder">-->
+<!--                <img id="jsv-image" alt="your 360 images" src="https://ao-dai-v2-low.s3.dualstack.us-east-1.amazonaws.com/B%E1%BB%98%202/1.jpg">-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <div class="section-index home-featured">
+            <div class="container-fluid">
+                <div class="featured-home__list">
+
+<!--                    1-->
+                    <div class="featured-home__line">
+                        <div class="col-lg-6 col-md-12 col-xs-12">
+                            <div class="featured-home__detail">
+                                <h2 class="home__title">
+                                    ÁO DÀI PHẤN VÂN
+                                </h2>
+                                <div class="home__des">
+                                    Một nét chấm phá trẻ trung giữa nền lụa truyền thống – áo dài Cách Tân mang đến tinh thần tươi mới cho những người phụ nữ hiện đại, yêu cái đẹp nhưng không ràng buộc bởi khuôn khổ xưa cũ.
+                                    Tà yếm khẽ ôm bờ vai, quần bống buông lơi theo gió. Một dáng hình dịu dàng, lặng lẽ mà cuốn hút – như hơi thở của vẻ đẹp xưa, chạm vào nhịp sống hôm nay.
+                                </div>
+<!--                                <div class="featured-home__btn">-->
+<!--                                    <a th:href="@{/product/list}"-->
+<!--                                       class="btn-shop btn-shop-outline-">Xem thêm</a>-->
+<!--                                </div>-->
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-xs-12">
+                            <div class="featured-home__image ratiobox">
+                                <a href="">
+                                    <img class="lazyload" data-sizes="auto"
+                                         data-src="//theme.hstatic.net/200000066564/1001358455/14/home-featured1.jpg?v=118"
+                                         data-lowsrc="//theme.hstatic.net/200000066564/1001358455/14/home-featured1.jpg?v=118"
+                                         src="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750415138/p85ruilnatpukduufdcb.jpg"
+                                         alt="Ý HIÊN">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+<!--                    2-->
+                    <div class="featured-home__line">
+                        <div class="col-lg-6 col-md-12 col-xs-12">
+                            <div class="featured-home__detail">
+                                <h2 class="home__title">
+                                    ÁO DÀI TƠ NẮNG
+                                </h2>
+                                <div class="home__des">
+                                    "Tơ Nắng" mang tinh thần – một chiếc áo dài hiện đại, mềm mỏng như một buổi sáng có nắng, có gió nhẹ, và một tách trà còn ấm.
+                                    Dáng freesize không ôm sát, tay áo rộng rãi cho từng cử động thật tự nhiên. Lớp ren phủ ngoài nhẹ như khói sương, bên trong lót mịn mát. Quần lụa suông thả chậm theo mỗi bước chân, không quá nghiêm – chỉ vừa đủ để thấy mình dịu dàng.
+                                </div>
+<!--                                <div class="featured-home__btn">-->
+<!--                                    <a th:href="@{/product/list}"-->
+<!--                                       class="btn-shop btn-shop-outline-">Xem thêm</a>-->
+<!--                                </div>-->
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-xs-12">
+                            <div class="featured-home__image ratiobox">
+                                <a href="">
+                                    <img class="lazyload" data-sizes="auto"
+                                         data-src="//theme.hstatic.net/200000066564/1001358455/14/home-featured2.jpg?v=118"
+                                         data-lowsrc="//theme.hstatic.net/200000066564/1001358455/14/home-featured2.jpg?v=118"
+                                         src="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750414911/ug6klojcpw20qba5whdd.jpg"
+                                         alt="NHƯỢC CẨM PHÙ HOA">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+<!--                    3-->
+                    <div class="featured-home__line">
+                        <div class="col-lg-6 col-md-12 col-xs-12">
+                            <div class="featured-home__detail">
+                                <h2 class="home__title">
+                                    ÁO DÀI TUYẾT CẦM
+                                </h2>
+                                <div class="home__des">
+                                    Khi cổ điển giao thoa cùng hiện đại, áo dài Lemur ra đời như một bản hòa ca sáng tạo – mở ra bước chuyển mình đầy nghệ thuật cho áo dài Việt.
+                                    Lấy cảm hứng từ thập niên 1930, thiết kế Lemur - Tuyết Cầm mang dấu ấn của họa sĩ Cát Tường: cổ tròn thanh lịch, tay phồng duyên dáng, dáng ôm nhẹ, tà ngắn trẻ trung – tất cả tạo nên một diện mạo mới mẻ, hiện đại mà vẫn giữ vẹn nguyên cốt cách truyền thống.
+                                </div>
+                                <!--                                <div class="featured-home__btn">-->
+                                <!--                                    <a th:href="@{/product/list}"-->
+                                <!--                                       class="btn-shop btn-shop-outline-">Xem thêm</a>-->
+                                <!--                                </div>-->
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-xs-12">
+                            <div class="featured-home__image ratiobox">
+                                <a href="">
+                                    <img class="lazyload" data-sizes="auto"
+                                         data-src="//theme.hstatic.net/200000066564/1001358455/14/home-featured1.jpg?v=118"
+                                         data-lowsrc="//theme.hstatic.net/200000066564/1001358455/14/home-featured1.jpg?v=118"
+                                         src="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750415729/xj7df74a0j0nc7z4kl6y.jpg"
+                                         alt="Ý HIÊN">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+<!--                    4-->
+                    <div class="featured-home__line">
+                        <div class="col-lg-6 col-md-12 col-xs-12">
+                            <div class="featured-home__detail">
+                                <h2 class="home__title">
+                                    ÁO DÀI VÂN SƯƠNG
+                                </h2>
+                                <div class="home__des">
+                                    Vang vọng tinh thần từ áo tứ thân xưa cũ, hòa quyện cùng hơi thở cách tân của Lemur, Lê Phổ – Vân Sương ra đời như một khúc du ca trầm lắng giữa thập niên 1950, khi quá khứ và hiện tại bắt tay nhau trong một bản giao hòa của vẻ đẹp Việt.
+                                    Phom dáng ôm nhẹ nhàng, cổ cao kín đáo, tay thon thanh thoát, tinh tế – điểm xuyết trên nền xanh dịu như làn sương sớm. Sắc xanh tô điểm cho nét duyên dáng thành lịch của người phụ nữ Việt Nam, dệt thêu lên những vàng son của một thời vang bóng.
+                                </div>
+                                <!--                                <div class="featured-home__btn">-->
+                                <!--                                    <a th:href="@{/product/list}"-->
+                                <!--                                       class="btn-shop btn-shop-outline-">Xem thêm</a>-->
+                                <!--                                </div>-->
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-xs-12">
+                            <div class="featured-home__image ratiobox">
+                                <a href="">
+                                    <img class="lazyload" data-sizes="auto"
+                                         data-src="//theme.hstatic.net/200000066564/1001358455/14/home-featured1.jpg?v=118"
+                                         data-lowsrc="//theme.hstatic.net/200000066564/1001358455/14/home-featured1.jpg?v=118"
+                                         src="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750416547/gc3hcvi0hoi5fxtbp4w5.jpg"
+                                         alt="Ý HIÊN">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+<!--                    5-->
+                    <div class="featured-home__line">
+                        <div class="col-lg-6 col-md-12 col-xs-12">
+                            <div class="featured-home__detail">
+                                <h2 class="home__title">
+                                    ÁO DÀI THIỀU HOA
+                                </h2>
+                                <div class="home__des">
+                                    Lấy cảm hứng từ áo ngũ thân truyền thống, "Thiều Hoa" mang đến thiết kế đậm chất cổ điển nhưng vẫn tinh tế, hiện đại. Chất liệu gấm tơ tím phối lụa trơn, tôn dáng và dịu nhẹ từng bước chân. Không cần ánh kim lấp lánh hay chi tiết cầu kỳ — vẻ đẹp của áo nằm ở sự chỉn chu trong từng đường kim mũi chỉ, nơi chiếc cúc áo nhỏ xinh được đính tay bằng cả sự tỉ mẩn và nâng niu.
+                                </div>
+                                <!--                                <div class="featured-home__btn">-->
+                                <!--                                    <a th:href="@{/product/list}"-->
+                                <!--                                       class="btn-shop btn-shop-outline-">Xem thêm</a>-->
+                                <!--                                </div>-->
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-xs-12">
+                            <div class="featured-home__image ratiobox">
+                                <a href="">
+                                    <img class="lazyload" data-sizes="auto"
+                                         data-src="//theme.hstatic.net/200000066564/1001358455/14/home-featured1.jpg?v=118"
+                                         data-lowsrc="//theme.hstatic.net/200000066564/1001358455/14/home-featured1.jpg?v=118"
+                                         src="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750415508/uqdiuhqpbefuoigwudlu.jpg"
+                                         alt="Ý HIÊN">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-index home-products-tab">
+            <div class="container-fluid">
+<!--                <div class="htp-tablinks">-->
+
+<!--                    <a href="javascript:void(0)" class="htp-tablink mix-match active" data-id="htp-tab-1">Nàng thơ-->
+<!--                        Lam Duyên</a>-->
+
+
+<!--                </div>-->
+                <div class="htp-tabcontents">
+
+                    <div class="htp-tabcontent active" data-id="htp-tab-1">
+                        <div class="dat-mixmatch__swiper swiper-container dat-mixmatch">
+                            <div class="swiper-wrapper">
+                            </div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                        </div>
+                        <p class="shop-now text-center">
+                            <a class="btn-loadmore-mixmatch" th:href="@{/product/list}">Xem thêm <i
+                                    class="fa fa-chevron-down" aria-hidden="true"></i></a>
+                        </p>
+                    </div>
+
+
+                    <div class="htp-tabcontent" data-id="htp-tab-3" data-reg="false">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </th:block>
+</th:block>
+<script defer src="https://cdn.jsdelivr.net/npm/@3dweb/360javascriptviewer/lib/JavascriptViewer.min.js"></script>
+
+<style>
+    #jsv-holder {
+        width:500px;
+     }
+    #jsv-holder img {
+        width: 100%;
+     }
+</style>
+
+<div id="jsv-holder">
+    <img id="jsv-image" alt="your 360 images" src="https://ao-dai-v1.s3.dualstack.us-east-1.amazonaws.com/ao-dai-xanh-la/1.jpg">
+</div>
+
+<script type="application/javascript">
+    window.addEventListener('load', () => {
+        const jsv = new JavascriptViewer({
+            imageUrlFormat: 'x.jpg',
+            totalFrames:  66,
+            defaultProgressBar: false,
+        });
+
+        jsv.start()
+          .then(() => console.log('viewer started'))
+          .catch((e) => console.log('failed loading 360 viewer: ' + e))
+});
+</script>
+<script th:src="@{/js/initialization.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/checkout.js}"></script>
+<script th:src="@{/js/toast-message.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    const swiper = new Swiper(".mySwiper", {
+      loop: true,
+      autoplay: {
+        delay: 7000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+</script>
+</body>
+</html>

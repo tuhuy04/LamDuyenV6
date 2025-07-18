@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="vi" th:fragment="layout" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lam Duyên</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750419936/xkztap7wz2xxzi86flwx.jpg"
+          type="image/png"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        header.header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        header.header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #00ddeb, #ff6a88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        header.header p {
+            font-size: 1.25rem;
+            color: #b0bec5;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #gender-selection {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .gender-btn {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(45deg, #B89F6A, #D4C19C);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .gender-btn:hover {
+            background: linear-gradient(45deg, #A68E59, #C3B08B);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(184, 159, 106, 0.4);
+        }
+
+        .gender-btn.selected {
+            background: linear-gradient(45deg, #A68E59, #C3B08B);
+            box-shadow: 0 0 20px rgba(184, 159, 106, 0.7);
+            border: 2px solid #ffffff;
+            font-weight: 700;
+        }
+
+        #gender-status {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        #try-on-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .try-on-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            gap: 2rem;
+            min-height: 400px;
+        }
+
+        .preview-section, .processed-image-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            max-width: 400px;
+            padding: 0.8rem;
+            margin-bottom: 1.2rem;
+            border-radius: 12px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="file"]:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(184, 159, 106, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        button {
+            padding: 0.9rem 2rem;
+            background: linear-gradient(45deg, #B89F6A, #D4C19C);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        button:hover:not(:disabled) {
+            background: linear-gradient(45deg, #A68E59, #C3B08B);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(184, 159, 106, 0.4);
+        }
+
+        button:disabled {
+            background: rgba(255, 255, 255, 0.2);
+            cursor: not-allowed;
+        }
+
+        .preview-section img,
+        .processed-image-section img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .preview-section img:hover,
+        .processed-image-section img:hover {
+            transform: scale(1.02);
+        }
+
+        #loading-spinner {
+            display: none;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #B89F6A;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 1rem auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(184, 159, 106, 0.3);
+        }
+
+        .product-card.selected {
+            border: 2px solid #B89F6A;
+            box-shadow: 0 0 20px rgba(184, 159, 106, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .product-card .product-name {
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: #e0e0e0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        #download-btn {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #B89F6A, #D4C19C);
+            color: white;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        #download-btn:hover {
+            background: linear-gradient(45deg, #A68E59, #C3B08B);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header.header h1 {
+                font-size: 2.75rem;
+            }
+
+            header.header p {
+                font-size: 1rem;
+            }
+
+            .product-card img {
+                height: 180px;
+            }
+
+            .product-card .product-name {
+                font-size: 1.3rem;
+            }
+
+            .try-on-content {
+                flex-direction: column;
+                align-items: center;
+                min-height: auto;
+            }
+        }
+
+        #selfie-preview {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+<th:block th:replace="layout/user-layout :: layout">
+    <th:block th:fragment="pageContent">
+        <div class="container">
+            <header class="header">
+                <h1>Thử đồ</h1>
+                <p>Khám phá phong cách ảo với công nghệ tiên tiến!</p>
+            </header>
+
+            <!-- Gender Selection -->
+            <section id="gender-selection">
+                <button class="gender-btn" data-gender="male">Thử đồ nam</button>
+                <button class="gender-btn" data-gender="female">Thử đồ nữ</button>
+            </section>
+            <div id="gender-status"></div>
+
+            <!-- Try On Product Section -->
+            <section id="try-on-section" class="section" style="display: none;">
+                <h2>Thử Trang phục</h2>
+                <div class="try-on-content">
+                    <div class="preview-section">
+                        <label for="selfie-image">Tải lên ảnh của bạn</label>
+                        <input type="file" id="selfie-image" accept="image/*"/>
+                        <p>Ảnh bạn đã chọn:</p>
+                        <img id="selfie-preview" class="image-preview" src="" alt="Selfie Preview"/>
+                    </div>
+                    <div class="processed-image-section">
+                        <p>Ảnh sau khi thử:</p>
+                        <div><br></div>
+                        <div><br></div>
+                        <div><br></div>
+                        <img id="processed-image" src="" alt="Processed Image"/>
+                        <div id="loading-spinner"></div>
+                        <a id="download-btn" href="#" download>Tải xuống</a>
+                    </div>
+                </div>
+                <button id="process-btn">Xử lý ảnh</button>
+            </section>
+
+            <section id="product-list-section" class="section" style="display: none;">
+                <h2>Sản phẩm hiện có</h2>
+                <div id="product-list"></div>
+            </section>
+        </div>
+        <script>
+            const genderSelection = document.getElementById("gender-selection");
+            const genderStatus = document.getElementById("gender-status");
+            const tryOnSection = document.getElementById("try-on-section");
+            const selfieImageInput = document.getElementById("selfie-image");
+            const processButton = document.getElementById("process-btn");
+            const processedImageSection = document.querySelector(".processed-image-section");
+            const processedImage = document.getElementById("processed-image");
+            const downloadButton = document.getElementById("download-btn");
+            const productListSection = document.getElementById("product-list-section");
+            const productList = document.getElementById("product-list");
+            const loadingSpinner = document.getElementById("loading-spinner");
+
+            let products = [];
+            let selectedGender = null;
+
+            const fetchProducts = async (gender) => {
+                try {
+                    const response = await fetch(`/products?gender=${gender}`);
+                    const data = await response.json();
+                    products = data;
+                    displayProducts();
+                } catch (error) {
+                    console.error("Error fetching products:", error);
+                }
+            };
+
+            const displayProducts = () => {
+                productList.innerHTML = '';
+                products.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.classList.add('product-card');
+                    productCard.setAttribute('data-product-id', product.id);
+
+                    const imageUrl = (product.imageUrls && product.imageUrls.length > 0)
+                        ? product.imageUrls[0]
+                        : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuqLmwNT7HieESyKEeN1pAxWiTCe2VOYs88g&s';
+
+                    productCard.innerHTML = `
+            <img src="${imageUrl}" alt="${product.product_Name}" />
+            <div class="product-name">${product.product_Name}</div>
+        `;
+
+                    productCard.addEventListener('click', () => handleProductSelect(product));
+                    productList.appendChild(productCard);
+                });
+            };
+
+            let selectedProduct = null;
+            const handleProductSelect = (product) => {
+                selectedProduct = product;
+
+                document.querySelectorAll('.product-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+
+                const selectedCard = document.querySelector(`.product-card[data-product-id="${product.id}"]`);
+                if (selectedCard) {
+                    selectedCard.classList.add('selected');
+                }
+
+                tryOnSection.style.display = 'block';
+            };
+
+            genderSelection.addEventListener('click', (e) => {
+                if (e.target.classList.contains('gender-btn')) {
+                    selectedGender = e.target.getAttribute('data-gender');
+                    document.querySelectorAll('.gender-btn').forEach(btn => btn.classList.remove('selected'));
+                    e.target.classList.add('selected');
+                    genderStatus.textContent = `Đang chọn: Thử đồ ${selectedGender === 'male' ? 'nam' : 'nữ'}`;
+                    productListSection.style.display = 'block';
+                    fetchProducts(selectedGender);
+                }
+            });
+
+            selfieImageInput.addEventListener("change", (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        const selfiePreview = document.getElementById("selfie-preview");
+                        selfiePreview.src = event.target.result;
+                        selfiePreview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+
+                    processedImageSection.style.display = 'none';
+                    loadingSpinner.style.display = 'none';
+                }
+            });
+
+            processButton.addEventListener("click", async () => {
+                if (!selfieImageInput.files[0] || !selectedProduct) {
+                    return;
+                }
+
+                loadingSpinner.style.display = 'block';
+                processedImageSection.style.display = 'none';
+                processButton.disabled = true;
+
+                const formData = new FormData();
+                formData.append("selfie", selfieImageInput.files[0]);
+                formData.append("productId", selectedProduct.id.toString());
+
+                try {
+                    const response = await fetch("/products/try-on", {
+                        method: "POST",
+                        body: formData,
+                    });
+
+                    loadingSpinner.style.display = 'none';
+                    processButton.disabled = false;
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        processedImage.src = result.result_url;
+
+                        processedImageSection.style.display = 'block';
+                        downloadButton.href = result.result_url;
+                    } else {
+                        alert("Failed to process the image. Please try again.");
+                    }
+                } catch (error) {
+                    console.error("Error processing image:", error);
+                    loadingSpinner.style.display = 'none';
+                    processButton.disabled = false;
+                    alert("Error processing image. Please try again.");
+                }
+            });
+        </script>
+    </th:block>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="vi" th:fragment="layout" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<link rel="shortcut icon" href="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750419936/xkztap7wz2xxzi86flwx.jpg"
+      type="image/png"/>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="revisit-after" content="1 day"/>
+    <meta name="HandheldFriendly" content="true">
+    <link rel="shortcut icon" href="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750419936/xkztap7wz2xxzi86flwx.jpg" type="image/png"/>
+    <title>Lam Duyen</title>
+    <link rel="canonical" href=""/>
+    <link rel="alternate" href="" hreflang="vi-vn"/>
+    <meta name="keywords" content="">
+    <meta name="robots" content="index,follow,noodp">
+    <link rel="preload" href="//theme.hstatic.net/200000066564/1001358455/14/slideshow_1.jpg?v=118" as="image" media="(min-width: 768px)">
+    <link rel="preload" href="//theme.hstatic.net/200000066564/1001358455/14/slideshow_2_mobile.jpg?v=118" as="image" media="(max-width: 767px)">
+
+    <style>
+        body {
+            font-family: 'Playfair Display', serif;
+            background-color: #FDF6E8;
+            color: #2A2A2A;
+            margin: 0;
+            line-height: 1.6;
+        }
+        .search-sort-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    flex-wrap: wrap;
+    background-color: #FAF1E3;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.search-sort-wrapper form {
+    margin: 0;
+    flex-grow: 1;
+}
+
+.search-sort-wrapper .search-container {
+    margin: 0;
+    max-width: 100%;
+    width: 100%;
+    border: 1px solid #B89F6A;
+    border-radius: 30px;
+    display: flex;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.search-sort-wrapper .search-container input {
+    border: none;
+    padding: 10px 16px;
+    font-size: 14px;
+    flex: 1;
+    font-family: 'Lora', serif;
+}
+
+.search-sort-wrapper .search-container button {
+    background-color: #B89F6A;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-family: 'Playfair Display', serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-sort-wrapper .search-container button:hover {
+    background-color: #A68B54;
+}
+
+.sort-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sort-dropdown label {
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #2A2A2A;
+}
+
+.sort-dropdown select {
+    padding: 8px 12px;
+    border: 1px solid #B89F6A;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: 'Lora', serif;
+    background-color: #fff;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.sort-dropdown select:hover {
+    border-color: #A68B54;
+}
+
+@media (max-width: 768px) {
+    .search-sort-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            max-width: 450px;
+            margin: 30px auto;
+            border: 1px solid #B89F6A;
+            border-radius: 30px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.3s ease;
+        }
+        .search-container:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        #searchInput {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            color: #2A2A2A;
+            font-family: 'Lora', serif;
+        }
+        .search-container button {
+            padding: 12px 25px;
+            background-color: #B89F6A;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+            border-radius: 0 30px 30px 0;
+            transition: background-color 0.3s ease;
+        }
+        .search-container button:hover {
+            background-color: #A68B54;
+        }
+        .wrap-collection-title {
+            padding: 30px 20px;
+            background-color: #FDF6E8;
+            border-bottom: 1px solid #D9C2A6;
+        }
+        .box-filters {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #FAF1E3;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+        .colsort-row, .option {
+            display: inline-block;
+            margin-left: 15px;
+        }
+        .lb-filter {
+            font-size: 15px;
+            color: #2A2A2A;
+            font-family: 'Lora', serif;
+            font-weight: 500;
+        }
+        .custom-dropdown__select {
+            padding: 8px 12px;
+            border: 1px solid #B89F6A;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #2A2A2A;
+            background-color: #fff;
+            font-family: 'Lora', serif;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+        .custom-dropdown__select:hover {
+            border-color: #A68B54;
+        }
+        .product-img {
+            height: 450px;
+            overflow: hidden;
+            position: relative;
+<!--            border-radius: 10px;-->
+            transition: transform 0.3s ease;
+        }
+        .product-img:hover {
+            transform: scale(1.02);
+        }
+        .product-img picture,
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .group-filter {
+            margin-bottom: 20px;
+        }
+        .layered_subtitle {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 18px;
+            color: #2A2A2A;
+            margin-bottom: 12px;
+        }
+        .check-box-list {
+            list-style: none;
+            padding: 0;
+        }
+        .check-box-list li {
+            margin-bottom: 8px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+        }
+        .check-box-list input[type="checkbox"] {
+            margin-right: 10px;
+            accent-color: #B89F6A;
+        }
+        .filter-color span {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            margin-right: 10px;
+            vertical-align: middle;
+            border: 1px solid #D9C2A6;
+        }
+        .pro-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: #2A2A2A;
+            font-weight: 600;
+            margin: 10px 0;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+        .pro-name a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .pro-name a:hover {
+            color: #B89F6A;
+        }
+        .pro-price {
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            color: #2A2A2A;
+            text-align: center;
+            font-weight: 500;
+        }
+        .product-block {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.3s ease;
+            margin-bottom: 20px;
+        }
+        .product-block:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        @media (max-width: 768px) {
+            .search-container {
+                max-width: 95%;
+                margin: 20px auto;
+            }
+            .product-img {
+                height: 200px;
+            }
+            .box-filters {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px;
+            }
+            .option {
+                margin-top: 12px;
+                margin-left: 0;
+            }
+            .pro-name {
+                font-size: 16px;
+            }
+            .pro-price {
+                font-size: 14px;
+            }
+<!--            .product-block {-->
+<!--                padding: 10px;-->
+<!--            }-->
+        }
+    </style>
+    <link rel="preload" as="style" href="//theme.hstatic.net/200000066564/1001358455/14/styles.css?v=118">
+    <link rel="preload" href="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750419936/xkztap7wz2xxzi86flwx.jpg" as="image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500&display=swap" as="style">
+    <link rel="stylesheet" th:href="@{/css/lalin.css}">
+    <link rel="stylesheet" th:href="@{/css/list.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    <link href='//theme.hstatic.net/200000066564/1001358455/14/slick.css?v=118' rel='stylesheet' type='text/css' media='all'/>
+    <link href='//theme.hstatic.net/200000066564/1001358455/14/slick-theme.css?v=118' rel='stylesheet' type='text/css' media='all'/>
+    <link href="//theme.hstatic.net/200000066564/1001358455/14/styles.css?v=118" rel="preload stylesheet" as="style" type="text/css">
+    <link href='//theme.hstatic.net/200000066564/1001358455/14/mixmatch.css?v=118' rel='stylesheet' type='text/css' media='all'/>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.8.36/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.8.36/plugin/customParseFormat.js"></script>
+    <script defer src='https://stats.hstatic.net/beacon.min.js' hrv-beacon-t='200000066564'></script>
+</head>
+
+<body>
+<th:block th:replace="layout/user-layout :: layout">
+    <th:block th:fragment="pageContent">
+        <div id="collection" class="collection-page pd-page">
+            <div class="breadcrumb-shop" style="display:none">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pd5">
+                            <ol class="breadcrumb breadcrumb-arrows" itemscope
+                                itemtype="http://schema.org/BreadcrumbList">
+                                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                                    <a href="/" target="_self" itemprop="item"><span itemprop="name">Trang chủ</span></a>
+                                    <meta itemprop="position" content="1"/>
+                                </li>
+                                <li class="active" itemprop="itemListElement" itemscope
+                                    itemtype="http://schema.org/ListItem">
+                                    <span itemprop="item" content="https://lalin.vn/collections/tat-ca-sp"><span
+                                            itemprop="name">tất cả sản phẩm</span></span>
+                                    <meta itemprop="position" content="2"/>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-content">
+                <div id="collection-body" class="wrap-collection-body clearfix">
+                    <div class="gallery-container">
+                            <div class="search-sort-wrapper">
+                                <!-- Form tìm kiếm -->
+                                <form method="get" th:action="@{/product/list}" id="productSearchForm">
+                                    <div class="search-container">
+                                        <input type="text" name="search" id="searchInput" placeholder="Tìm sản phẩm áo dài yêu thích...">
+                                        <button type="submit">Tìm kiếm</button>
+                                    </div>
+                                </form>
+
+                                <!-- Form sắp xếp -->
+                                <form method="get" id="sort-form" class="sort-dropdown">
+                                    <label for="sort-by">Sắp xếp:</label>
+                                    <select name="sortby" id="sort-by" onchange="document.getElementById('sort-form').submit();">
+                                        <option value="price-ascending" th:selected="${param.sortby == 'price-ascending'}">Giá: Tăng dần</option>
+                                        <option value="price-descending" th:selected="${param.sortby == 'price-descending'}">Giá: Giảm dần</option>
+                                        <option value="title-ascending" th:selected="${param.sortby == 'title-ascending'}">Tên: A-Z</option>
+                                        <option value="title-descending" th:selected="${param.sortby == 'title-descending'}">Tên: Z-A</option>
+                                        <option value="created-ascending" th:selected="${param.sortby == 'created-ascending'}">Cũ nhất</option>
+                                        <option value="created-descending" th:selected="${param.sortby == 'created-descending'}">Mới nhất</option>
+                                        <option value="quantity-descending" th:selected="${param.sortby == 'quantity-descending'}">Tồn kho: Giảm dần</option>
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+                        <div> <br> </div>
+                        <div class="row filter-here">
+                            <div class="content-product-list product-list filter clearfix">
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 pro-loop" th:each="product : ${products}">
+                                    <div class="product-resize" th:id="'collection_loop_' + ${product.id}">
+                                        <div class="product-img">
+                                            <a th:href="@{/product/{id}(id=${product.id})}" th:title="${product.product_Name}" class="image-resize ratiobox">
+                                                <picture>
+                                                    <img th:if="${product.productImage != null and !#lists.isEmpty(product.productImage)}"
+                                                         th:src="@{${product.productImage[0].url_Image}}"
+                                                         class="lazyload img-loop" alt="Product Image"/>
+                                                </picture>
+                                            </a>
+                                        </div>
+                                        <div class="product-detail clearfix">
+                                            <div class="box-pro-detail">
+                                                <div class="box-pro-title">
+                                                    <h3 class="pro-name">
+                                                        <a th:href="@{/product/{id}(id=${product.id})}" th:title="${product.product_Name}"><span th:text="${product.product_Name}"></span></a>
+                                                    </h3>
+                                                </div>
+                                                <div class="box-pro-prices">
+                                                    <p class="pro-price">
+                                                        <span class="price" th:text="${product.price}"></span>
+
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sortpagibar pagi clearfix text-center col-md-12 col-xs-12">
+                                    <div class="btnLoadMore" style="display: none;" data-url="/collections/tat-ca-sp?page=2">
+                                        <img src="//theme.hstatic.net/200000066564/1001358455/14/down-arrow.png?v=118" alt="Down Arrow" style="width:50px;"><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <input type="text" class="hidden" id="coll-handle" value="(collectionid:product=1002052091)"/>
+                <input type="text" id="coll-h" class="hidden" value="tat-ca-sp"/>
+                <input type="text" id="total-page" class="hidden" value="3"/>
+            </div>
+        </div>
+    </th:block>
+</th:block>
+
+<script>
+    document.querySelectorAll(".price").forEach(el => {
+        const raw = parseInt(el.textContent.replace(/\D/g, ''));
+        if (!isNaN(raw)) {
+            el.textContent = raw.toLocaleString('vi-VN') + " VND";
+        }
+    });
+</script>
+
+
+<script th:src="@{/js/initialization.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/checkout.js}"></script>
+<script th:src="@{/js/toast-message.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

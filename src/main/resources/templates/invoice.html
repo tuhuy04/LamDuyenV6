@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hóa Đơn</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/98df298cac.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750419936/xkztap7wz2xxzi86flwx.jpg" type="image/png"/>
+    <style>
+        body, main, #invoice, #details, table, #totals, #footer, .shipping-info, .print-button, .row, .col-md-6, .col-md-12, .col-md-4 {
+            font-family: 'Times New Roman', Times, serif !important;
+            font-size: 18px;
+        }
+        body {
+            background-color: #f4f7fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex: 1;
+        }
+        #invoice {
+            width: 80%;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            color: #333;
+            margin-bottom: 50px;
+            overflow: auto;
+            position: relative;
+        }
+        .invoice-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 24px;
+            margin-top: 0;
+            color: #4CAF50;
+            font-weight: 700;
+        }
+        #logo img {
+            width: 150px;
+        }
+        #details {
+            line-height: 1.6;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+        table th, table td {
+            padding: 15px 25px;
+            text-align: left;
+        }
+        table th:first-child, table td:first-child {
+            padding-left: 30px !important;
+        }
+        table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        #totals {
+            width: auto;
+            margin-top: 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            padding: 15px;
+        }
+        #totals th, #totals td {
+            padding: 12px 15px;
+            font-size: 20px;
+            font-weight: bold;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+        #totals th {
+            text-align: left;
+            color: #333;
+        }
+        #totals td {
+            text-align: right;
+            color: #d32f2f;
+            padding-left: 10px;
+        }
+        #footer {
+            margin-top: 30px;
+            list-style: none;
+            padding: 0;
+        }
+        #footer li {
+            margin-bottom: 5px;
+        }
+        .print-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 24px;
+            margin-right: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+            font-size: 20px;
+        }
+        .print-button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+        i {
+            font-style: normal !important;
+        }
+        strong {
+            font-weight: bold;
+        }
+        .margin-top-20 {
+            margin-top: 20px;
+        }
+        .margin-bottom-5 {
+            margin-bottom: 5px;
+        }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #invoice, #invoice * {
+                visibility: visible;
+            }
+            #invoice {
+                width: 100%;
+                margin: 0;
+                box-shadow: none;
+                padding: 0;
+                position: absolute;
+                top: 0;
+                left: 0;
+                border-radius: 0;
+            }
+            .print-button {
+                display: none;
+            }
+            .row-bottom-align {
+                display: none;
+            }
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+        }
+        .col-md-6 {
+            width: 50%;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+        .col-md-12 {
+            width: 100%;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+        .shipping-info {
+            border: 1px solid #ddd;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .col-md-4 {
+            width: 33.33%;
+            padding: 0 10px;
+        }
+        .col-md-8 {
+            width: 66.66%;
+            padding: 0 10px;
+        }
+        .row-bottom-align {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            margin-top: 40px;
+            margin-bottom: 0;
+        }
+        .col-md-8.flex-bottom {
+            display: flex;
+            align-items: flex-end;
+        }
+        .col-md-4.flex-bottom {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+        @media (max-width: 576px) {
+            #invoice {
+                width: 100%;
+                padding: 20px;
+                margin: 20px auto;
+            }
+            .col-md-4, .col-md-8 {
+                width: 100%;
+                margin-left: 0;
+            }
+            #totals {
+                width: 100%;
+            }
+            .row-bottom-align {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .col-md-4.flex-bottom {
+                justify-content: flex-start;
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="layout/user-layout :: layout">
+    <th:block th:fragment="pageContent">
+        <div id="invoice">
+            <!-- Tiêu đề hóa đơn căn giữa -->
+            <h2 class="invoice-title">Hóa Đơn Mua Hàng</h2>
+
+            <!-- Header hóa đơn -->
+            <div class="row">
+                <div class="col-md-6">
+                    <p id="details">
+                        <strong>Mã đơn hàng: </strong><i th:text="'#' + ${order.id}"></i><br>
+                        <strong>Ngày phát hành: </strong><i th:text="${#temporals.format(order.booking_Date, 'dd-MM-yyyy')}"></i><br>
+                        <strong>Hạn thanh toán:</strong> 7 ngày kể từ ngày phát hành.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Thông tin khách hàng & nhà cung cấp -->
+            <div class="row">
+                <div class="col-md-6">
+                    <strong class="margin-bottom-5">Nhà cung cấp</strong>
+                    <p>
+                        LamDuyen <br>
+                        FPT University<br>
+                        Hòa Lạc - Hà Nội <br>
+                    </p>
+                </div>
+
+                <div class="col-md-6">
+                    <strong class="margin-bottom-5">Khách hàng</strong>
+                    <p>
+                        <i th:text="${order.fullname}"></i><br>
+                        <i th:text="'SĐT: ' + ${order.phone}"></i><br>
+                        <i th:text="'Email: ' + ${order.email}"></i><br>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Chi tiết đơn hàng -->
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="margin-top-20">
+                        <tr>
+                            <th>Tên sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Size</th>
+                            <th>Tổng cộng</th>
+                        </tr>
+                        <th:block th:each="y: ${listOrder_Item}">
+                            <tr>
+                                <td th:text="${y.product.product_Name}"></td>
+                                <td th:text="${y.count}"></td>
+                                <td th:text="${y.size.sizeName}"></td>
+                                <td th:text="${#numbers.formatDecimal(y.product.price * y.count, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></td>
+                            </tr>
+                        </th:block>
+                    </table>
+
+                    <div class="shipping-info margin-top-20">
+                        <h3 style="color: #4CAF50;">Thông tin giao hàng và Phương thức thanh toán</h3>
+                        <p>
+                            <strong>Địa chỉ giao hàng: </strong>
+                            <span th:text="${order.address}" style="display: inline-block; margin-bottom: 10px; font-weight: normal;"></span><br>
+                            <strong>Phương thức thanh toán: </strong>
+                            <span th:if="${order.payment_Method == 'Payment on delivery'}" th:text="'Thanh toán khi nhận hàng (COD)'" style="color: #28a745; font-weight: bold;"></span>
+                            <span th:if="${order.payment_Method == 'Payment with VNPay'}" th:text="'Thanh toán VNPay'" style="color: #17a2b8; font-weight: bold;"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hàng cuối: Nút và bảng tổng cộng cùng hàng -->
+            <div class="row-bottom-align">
+                <div class="col-md-8 flex-bottom">
+                    <a th:if="${invoiceView != null}" th:href="@{/client/order/myhistory}" class="print-button">
+                        Quay lại lịch sử mua hàng
+                    </a>
+                </div>
+                <div class="col-md-4 flex-bottom">
+                    <table id="totals">
+                        <tr>
+                            <th style="white-space:nowrap;">Tổng cộng:</th>
+                            <td>
+                                <span th:text="${#numbers.formatDecimal(order.total, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</th:block>
+</body>
+</html>

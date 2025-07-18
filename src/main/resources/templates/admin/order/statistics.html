@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thống kê doanh thu</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background: #f6f8fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .main-content {
+            margin: 40px auto 0 auto;
+            max-width: 1300px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+            padding: 32px 24px 24px 24px;
+        }
+        .title-row {
+            margin-bottom: 32px;
+        }
+        .flex-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            justify-content: flex-start;
+        }
+        .chart-container {
+            flex: 3 1 480px;
+            min-width: 340px;
+            max-width: 800px;
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 18px 10px 10px 10px;
+            box-shadow: 0 1px 8px rgba(54,162,235,0.08);
+        }
+        .table-container {
+            flex: 2 1 320px;
+            min-width: 260px;
+            max-width: 450px;
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 16px 8px;
+            box-shadow: 0 1px 8px rgba(54,162,235,0.08);
+            align-self: flex-start;
+        }
+        .table thead th {
+            background: #337ab7;
+            color: #fff;
+            text-align: center;
+            border: 1.5px solid #bbb;
+            font-weight: 600;
+            font-size: 1.08rem;
+        }
+        .table {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.03);
+        }
+        .table-bordered th, .table-bordered td {
+            border: 1.5px solid #bbb !important;
+            vertical-align: middle;
+            text-align: center;
+        }
+        .table tbody tr:hover {
+            background: #e7f1fa !important;
+            transition: background 0.2s;
+        }
+        .form-select, .form-label {
+            font-size: 1.02rem;
+        }
+        .form-select {
+            border-radius: 10px;
+            border: 1.5px solid #337ab7;
+            box-shadow: 0 1px 4px rgba(54,162,235,0.05);
+        }
+        h2, h4 {
+            letter-spacing: 1px;
+        }
+        #table-title {
+            margin-bottom: 0;
+            color: #337ab7;
+            font-weight: 600;
+        }
+        @media (max-width: 1100px) {
+            .flex-row {
+                flex-direction: column;
+                gap: 24px;
+            }
+            .main-content {
+                padding: 12px 4px 12px 4px;
+            }
+        }
+        @media (max-width: 600px) {
+            .chart-container, .table-container {
+                padding: 8px 2px;
+            }
+            .main-content {
+                margin-top: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="main-content">
+    <div class="title-row">
+        <h2 class="mb-4" style="text-align:left;">THỐNG KÊ DOANH THU</h2>
+        <div class="mb-3" style="text-align:left;">
+            <label for="statType" class="form-label">Chọn loại thống kê:</label>
+            <select id="statType" class="form-select" style="max-width: 300px; display: inline-block;">
+                <option value="day">Theo ngày</option>
+                <option value="month">Theo tháng</option>
+                <option value="year">Theo năm</option>
+            </select>
+        </div>
+    </div>
+    <div class="flex-row">
+        <div class="chart-container mb-4">
+            <canvas id="revenueChart"></canvas>
+        </div>
+        <div class="table-container">
+            <h4 class="text-center" id="table-title">Bảng doanh thu theo ngày</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered mt-3 align-middle">
+                    <thead>
+                    <tr id="table-header">
+                        <th>Ngày</th>
+                        <th>Doanh thu (VNĐ)</th>
+                    </tr>
+                    </thead>
+                    <tbody id="revenueTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const apiMap = {
+        day: '/admin/api/order/revenue/day',
+        month: '/admin/api/order/revenue/month',
+        year: '/admin/api/order/revenue/year'
+    };
+    const labelMap = {
+        day: 'Ngày',
+        month: 'Tháng',
+        year: 'Năm'
+    };
+    const statTypeSelect = document.getElementById('statType');
+    const tableHeader = document.getElementById('table-header');
+    const tableTitle = document.getElementById('table-title');
+    let chart;
+
+    function formatCurrency(value) {
+        return value.toLocaleString('vi-VN');
+    }
+
+    function formatDateYMDToDMY(dateStr) {
+        if (!dateStr) return "";
+        const [year, month, day] = dateStr.split("-");
+        return `${day}-${month}-${year}`;
+    }
+
+    function buildTableHeader(type) {
+        if (type === 'day') {
+            tableHeader.innerHTML = `<th>Ngày</th><th>Doanh thu (VNĐ)</th>`;
+            tableTitle.textContent = "Bảng doanh thu theo ngày";
+        } else if (type === 'month') {
+            tableHeader.innerHTML = `<th>Năm</th><th>Tháng</th><th>Doanh thu (VNĐ)</th>`;
+            tableTitle.textContent = "Bảng doanh thu theo tháng";
+        } else {
+            tableHeader.innerHTML = `<th>Năm</th><th>Doanh thu (VNĐ)</th>`;
+            tableTitle.textContent = "Bảng doanh thu theo năm";
+        }
+    }
+
+    function renderTable(data, type) {
+        const tbody = document.getElementById('revenueTableBody');
+        let html = '';
+        if (type === 'day') {
+            if (data.length === 0) {
+                html = `<tr><td colspan="2" class="text-center text-muted">Không có dữ liệu</td></tr>`;
+            } else {
+                data.forEach(row => {
+                    html += `<tr>
+                        <td>${formatDateYMDToDMY(row.time)}</td>
+                        <td>${formatCurrency(Number(row.revenue))}</td>
+                    </tr>`;
+                });
+            }
+        } else if (type === 'month') {
+            if (data.length === 0) {
+                html = `<tr><td colspan="3" class="text-center text-muted">Không có dữ liệu</td></tr>`;
+            } else {
+                data.forEach(row => {
+                    html += `<tr>
+                        <td>${row.year}</td>
+                        <td>${row.month}</td>
+                        <td>${formatCurrency(Number(row.revenue))}</td>
+                    </tr>`;
+                });
+            }
+        } else {
+            if (data.length === 0) {
+                html = `<tr><td colspan="2" class="text-center text-muted">Không có dữ liệu</td></tr>`;
+            } else {
+                data.forEach(row => {
+                    html += `<tr>
+                        <td>${row.year}</td>
+                        <td>${formatCurrency(Number(row.revenue))}</td>
+                    </tr>`;
+                });
+            }
+        }
+        tbody.innerHTML = html;
+    }
+
+    function renderChart(data, type) {
+        let labels = [], values = [];
+        if (type === 'day') {
+            labels = data.map(d => {
+                if (d.time) return formatDateYMDToDMY(d.time);
+                return '';
+            });
+            values = data.map(d => d.revenue);
+        } else if (type === 'month') {
+            labels = data.map(d => `${d.month}/${d.year}`);
+            values = data.map(d => d.revenue);
+        } else {
+            labels = data.map(d => d.year);
+            values = data.map(d => d.revenue);
+        }
+        if (chart) chart.destroy();
+        const ctx = document.getElementById('revenueChart').getContext('2d');
+        chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Doanh thu (VNĐ)',
+                    data: values,
+                    backgroundColor: 'rgba(54, 162, 235, 0.65)',
+                    borderRadius: 5,
+                    barPercentage: 0.75,
+                    categoryPercentage: 0.7
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    title: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return formatCurrency(Number(context.parsed.y));
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#e3e3e3', borderDash: [4,4] },
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString('vi-VN');
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    async function fetchAndShow(type) {
+        buildTableHeader(type);
+        try {
+            const res = await fetch(apiMap[type]);
+            const data = await res.json();
+            renderTable(data, type);
+            renderChart(data, type);
+        } catch (e) {
+            renderTable([], type);
+            if (chart) chart.destroy();
+        }
+    }
+
+    statTypeSelect.addEventListener('change', function() {
+        fetchAndShow(this.value);
+    });
+
+    // Initial load
+    fetchAndShow('day');
+</script>
+</body>
+</html>

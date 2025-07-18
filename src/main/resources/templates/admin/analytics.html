@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang quản lý thống kê</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card-header {
+            background-color: #f1f3f5;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.75rem 1rem;
+        }
+        .card-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        .chart-title {
+            margin: 1rem 0;
+            font-weight: bold;
+            font-size: 1.25rem;
+            color: #343a40;
+        }
+        .card {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-radius: 12px;
+        }
+        canvas {
+            max-height: 280px;
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="layout/admin-layout :: layout">
+    <th:block th:fragment="pageContent">
+        <div class="container mt-4">
+            <!-- Thống kê tổng quan -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-3">
+                    <div class="card border-start border-primary border-4">
+                        <div class="card-body text-center">
+                            <div class="card-header text-primary">Truy cập trang web</div>
+                            <div class="card-title text-primary" th:text="${totalVisits}">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-start border-success border-4">
+                        <div class="card-body text-center">
+                            <div class="card-header text-success">Xem sản phẩm</div>
+                            <div class="card-title text-success" th:text="${totalViews}">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-start border-warning border-4">
+                        <div class="card-body text-center">
+                            <div class="card-header text-warning">Thêm vào giỏ hàng</div>
+                            <div class="card-title text-warning" th:text="${totalAddToCart}">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-start border-danger border-4">
+                        <div class="card-body text-center">
+                            <div class="card-header text-danger">Thử đồ ảo</div>
+                            <div class="card-title text-danger" th:text="${totalTryOn}">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Biểu đồ -->
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card p-3">
+                        <div class="chart-title text-center">Thống kê theo ngày</div>
+                        <canvas id="eventsByDayChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card p-3">
+                        <div class="chart-title text-center">Phân loại sự kiện</div>
+                        <canvas id="eventTypeChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card p-3">
+                        <div class="chart-title text-center">Nguồn truy cập</div>
+                        <canvas id="sourceChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card p-3">
+                        <div class="chart-title text-center">Tương tác theo sản phẩm</div>
+                        <canvas id="productChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card p-3">
+                        <div class="chart-title text-center">Biểu đồ tăng trưởng truy cập trang web</div>
+                        <canvas id="areaVisitChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Scripts -->
+        <script th:inline="javascript">
+            const eventsByDayData = [[${eventsByDayData}]];
+            const eventTypeData = [[${eventTypeData}]];
+            const sourceData = [[${sourceData}]];
+            const productStatsData = [[${productStatsData}]];
+
+            new Chart(document.getElementById('eventsByDayChart'), {
+                type: 'line',
+                data: eventsByDayData,
+                options: {
+                    responsive: true,
+                    animation: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { title: { display: true, text: 'Ngày' } },
+                        y: { title: { display: true, text: 'Số sự kiện' }, beginAtZero: true }
+                    }
+                }
+            });
+
+            new Chart(document.getElementById('eventTypeChart'), {
+                type: 'bar',
+                data: eventTypeData,
+                options: {
+                    responsive: true,
+                    animation: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { title: { display: true, text: 'Loại sự kiện' } },
+                        y: { title: { display: true, text: 'Số lượng' }, beginAtZero: true }
+                    }
+                }
+            });
+
+            new Chart(document.getElementById('sourceChart'), {
+                type: 'doughnut',
+                data: sourceData,
+                options: {
+                    responsive: true,
+                    animation: false,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+
+            new Chart(document.getElementById('productChart'), {
+                type: 'bar',
+                data: productStatsData,
+                options: {
+                    responsive: true,
+                    animation: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { title: { display: true, text: 'Sản phẩm' } },
+                        y: { title: { display: true, text: 'Lượt tương tác' }, beginAtZero: true }
+                    }
+                }
+            });
+
+            const visitByDayAreaChart = [[${visitByDayAreaChart}]];
+
+
+
+new Chart(document.getElementById('areaVisitChart'), {
+    type: 'line',
+    data: visitByDayAreaChart,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return ` ${context.parsed.y} lượt truy cập`;
+                    }
+                }
+            }
+        },
+        scales: {
+  x: {
+    type: 'category',
+    title: {
+      display: true,
+      text: 'Ngày'
+    },
+    ticks: {
+      autoSkip: false, // ⛔ Không bỏ qua nhãn trục X
+      maxRotation: 45, // Xoay nhãn 45 độ để không bị đè
+      minRotation: 45
+    }
+  },
+  y: {
+    beginAtZero: true,
+    title: {
+      display: true,
+      text: 'Số sự kiện'
+    }
+  }
+}
+
+    }
+});
+
+        </script>
+    </th:block>
+</th:block>
+</body>
+</html>

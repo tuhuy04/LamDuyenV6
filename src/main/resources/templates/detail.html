@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="vi" th:fragment="layout" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="revisit-after" content="1 day"/>
+    <meta name="HandheldFriendly" content="true">
+    <link rel="shortcut icon" href="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750419936/xkztap7wz2xxzi86flwx.jpg"
+          type="image/png"/>
+    <title>
+        Lam Duyen
+    </title>
+
+    <link rel="canonical" href=""/>
+    <link rel="alternate" href="" hreflang="vi-vn"/>
+    <meta name="keywords" content="LaLin">
+    <meta name="robots" content="index,follow,noodp">
+    <link rel="preload" href="//theme.hstatic.net/200000066564/1001358455/14/slideshow_1.jpg?v=118" as="image"
+          media="(min-width: 768px)">
+    <link rel="preload" href="//theme.hstatic.net/200000066564/1001358455/14/slideshow_2_mobile.jpg?v=118" as="image"
+          media="(max-width: 767px)">
+
+
+    <link rel="preload" as="style" href="//theme.hstatic.net/200000066564/1001358455/14/styles.css?v=118">
+    <link rel="preload" href="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750419936/xkztap7wz2xxzi86flwx.jpg" as="image">
+    <link rel="preconnect" href="Saira+Condensed:wght@200;300;400;500;600&display=swap">
+    <link rel="preload" href="Saira+Condensed:wght@200;300;400;500;600&display=swap" as="style">
+
+
+    <link rel="stylesheet" th:href="@{/css/lalin.css}">
+    <link rel="stylesheet" th:href="@{/css/detail.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@200;300;400;500;600&display=swap"
+          rel="stylesheet">
+    <style>
+
+    </style>
+    <link href='//theme.hstatic.net/200000066564/1001358455/14/slick.css?v=118' rel='stylesheet' type='text/css'
+          media='all'/>
+    <link href='//theme.hstatic.net/200000066564/1001358455/14/slick-theme.css?v=118' rel='stylesheet' type='text/css'
+          media='all'/>
+
+    <link href="//theme.hstatic.net/200000066564/1001358455/14/styles.css?v=118" rel="preload stylesheet" as="style"
+          type="text/css">
+
+    <link href='//theme.hstatic.net/200000066564/1001358455/14/mixmatch.css?v=118' rel='stylesheet' type='text/css'
+          media='all'/>
+
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.8.36/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.8.36/plugin/customParseFormat.js"></script>
+    <script defer src='https://stats.hstatic.net/beacon.min.js' hrv-beacon-t='200000066564'></script>
+    <style>
+        .desc-more {
+            display: block !important;
+        }
+        .size-option {
+            min-width: 200px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+        }
+
+    </style>
+
+    <style>
+        /* Reset & Base */
+        body {
+            font-family: 'Saira Condensed', sans-serif;
+            font-size: 16px;
+            color: #222;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .container-fluid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 15px;
+        }
+
+        .product-detail-inner {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        /* Left: Product Image */
+        .product-left {
+            flex: 2;
+        }
+
+        .product-image-feature {
+            border: 1px solid #ddd;
+            padding: 10px;
+            background: #fafafa;
+            text-align: center;
+        }
+
+        .product-image-feature img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Right: Product Info */
+        .product-content {
+            flex: 1;
+            border: 1px solid #eee;
+            padding: 25px;
+            border-radius: 10px;
+            background-color: #fdfdfd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .product-title {
+            font-size: 26px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .pro-sku {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .current-price {
+            font-size: 22px;
+            color: #e91e63;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* Size Dropdown */
+        .product-single__variants {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        /* Quantity Selector */
+        .quantity-area {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .qty-btn {
+            padding: 5px 12px;
+            background-color: #eee;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .quantity-selector {
+            width: 50px;
+            text-align: center;
+            margin: 0 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            height: 36px;
+        }
+
+        /* Buttons */
+        .product-actions button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+        .btnAddToCart {
+            background-color: #ff4081;
+            color: #fff;
+        }
+
+        .btnAddToCart:hover {
+            background-color: #e91e63;
+        }
+
+        .btnBuyNow {
+            background-color: #2196f3;
+            color: #fff;
+        }
+
+        .btnBuyNow:hover {
+            background-color: #1976d2;
+        }
+
+        /* Policy */
+        .policy-shop {
+            margin-top: 25px;
+            border-top: 1px dashed #ddd;
+            padding-top: 20px;
+        }
+
+        .policy-shop-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .policy-shop-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .policy-icon img {
+            width: 40px;
+            margin-right: 15px;
+        }
+
+        .policy-txt {
+            font-size: 15px;
+            color: #444;
+        }
+
+        .policy-hotline {
+            font-size: 13px;
+            color: #999;
+        }
+
+        /* Description */
+        .section-description-tags {
+            margin-top: 30px;
+        }
+
+        .des-tag-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background: #f7f7f7;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        .description-body {
+            margin-top: 15px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .product-detail-inner {
+                flex-direction: column;
+            }
+
+            .product-left, .product-content {
+                width: 100%;
+            }
+
+            .product-actions button {
+                font-size: 14px;
+            }
+
+            .current-price {
+                font-size: 20px;
+            }
+        }
+
+        /* Form Container Styling */
+        .product__details__cart__option {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* Quantity input styling */
+        .quantity {
+            width: 100%;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Quantity input box */
+        .pro-qty input {
+            width: 60px;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 16px;
+            background-color: #f8f8f8;
+            transition: all 0.3s ease;
+        }
+
+        /* Quantity input on hover */
+        .pro-qty input:hover {
+            border-color: #888;
+        }
+
+        /* Quantity input on focus */
+        .pro-qty input:focus {
+            border-color: #5c9ded;
+            outline: none;
+            box-shadow: 0 0 8px rgba(92, 157, 237, 0.2);
+        }
+
+        /* Size dropdown styling */
+        .size {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .size select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #f8f8f8;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Hover and focus effects for the size dropdown */
+        .size select:hover {
+            border-color: #888;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .size select:focus {
+            border-color: #5c9ded;
+            outline: none;
+            box-shadow: 0px 2px 12px rgba(92, 157, 237, 0.2);
+        }
+
+        /* Button styling */
+        .primary-btn {
+            background-color: #5c9ded;
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Button hover effect */
+        .primary-btn:hover {
+            background-color: #4a8fd1;
+            box-shadow: 0 2px 8px rgba(92, 157, 237, 0.2);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .product__details__cart__option {
+                width: 100%;
+            }
+
+            .primary-btn {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+
+            .pro-qty input {
+                font-size: 14px;
+                width: 50px;
+            }
+        }
+
+        /* Ensure the select dropdown is visible */
+        .size select {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background-color: #f8f8f8;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .size select option {
+            padding: 10px;
+            background-color: #fff;
+            color: #333;
+        }
+
+        /* Make sure it's not hidden */
+        .size select {
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        .slider-nav img {
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.slider-nav .slick-current img {
+    border-color: #ff4081;
+}
+
+    </style>
+</head>
+<body>
+<th:block th:replace="layout/user-layout :: layout">
+    <th:block th:fragment="pageContent">
+        <section id="product-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 product-left">
+                        <div class="customize-product-slider clearfix">
+                            <div id="surround" class="clearfix">
+                                <div class="product-image-feature">
+                                    <div class="slider-for">
+                                        <th:block th:each="img : ${product.productImage}">
+                                            <div>
+                                                <img th:src="@{${img.url_Image}}" th:alt="${img.url_Image}" style="width:100%; height:auto; object-fit: cover; border-radius: 8px;" />
+                                            </div>
+                                        </th:block>
+                                    </div>
+
+                                    <div class="slider-nav mt-2">
+                                        <th:block th:each="img : ${product.productImage}">
+                                            <div>
+                                                <img th:src="@{${img.url_Image}}" th:alt="${img.url_Image}" style="width:80px; height:80px; object-fit: cover; border-radius: 6px;" />
+                                            </div>
+                                        </th:block>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="product-content">
+                            <div class="pro-content-head clearfix">
+                                <div class="r-flex row-title-reviews">
+                                    <h3 class="product-title" th:text="${product.product_Name}">Tên sản
+                                        phẩm</h3>
+                                </div>
+
+                                <div class="pro-sku ProductSku">
+                                    <span class="title">Mã SP:</span> <span
+                                        th:text="${product.id}">Mã sản phẩm</span>
+                                </div>
+                            </div>
+
+                            <div class="pro-price clearfix" id="price-view">
+                                    <span class="current-price ProductPrice"
+                                          th:text="${product.price}">Giá sản phẩm</span>
+                            </div>
+
+                            <form th:action="@{/client/cart/addToCart}" method="post">
+                                <div class="product__details__cart__option">
+                                    <div class="quantity">
+                                        <div class="pro-qty">
+                                            <input name="count" type="number" value="1"
+                                                   th:attr="max=${product.quantity}, min=1" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <input name="product_id" style="display: none;" type="text"
+                                           th:value="${product.id}">
+
+                                    <div class="size">
+                                        <label for="sizeSelect" class="form-label">Chọn kích cỡ</label>
+                                        <select name="size_id"
+                                                id="sizeSelect"
+                                                class="form-select mb-3 size-option"
+                                                aria-label="Chọn kích cỡ">
+                                            <option disabled selected>-- Chọn size --</option>
+                                            <option th:each="categorySize : ${product.getAllSizes()}"
+                                                    th:value="${categorySize.size.id}"
+                                                    th:text="${categorySize.size.sizeName}">
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <button class="primary-btn">Thêm vào giỏ hàng</button>
+                                </div>
+                            </form>
+
+
+                            <div class="policy-shop">
+                                <ul class="policy-shop-list">
+                                    <li class="policy-shop-item">
+                                    <span class="policy-icon">
+                                        <img src="//theme.hstatic.net/200000066564/1001358455/14/policy-ship.png?v=118"/>
+                                    </span>
+                                        <span class="policy-txt">Miễn phí giao hàng với đơn từ 2.000.000đ</span>
+                                    </li>
+
+                                    <li class="policy-shop-item">
+                                        <a href="tel:0962731333">
+                                        <span class="policy-icon">
+                                            <img src="//theme.hstatic.net/200000066564/1001358455/14/phone-call.png?v=118"/>
+                                        </span>
+                                            <div class="policy-txt">
+                                                <span>0962 731 333</span>
+                                                <span class="policy-hotline">Hỗ trợ mua hàng 24/7</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li class="policy-shop-item btn-more-modal" data-key="modal-return"
+                                        data-toggle="modal" data-target="#modal-return">
+                                    <span class="policy-icon">
+                                        <img src="//theme.hstatic.net/200000066564/1001358455/14/policy-return.png?v=118"/>
+                                    </span>
+                                        <div class="policy-txt">
+                                            <span>Chính sách đổi trả hàng</span>
+                                            <a href="javascript:void(0)" class="btn-more-policy">Tìm hiểu
+                                                thêm</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="section-description-tags">
+                                <div class="des-tag-head btn-toogle-des has-info">
+                                    <h3>Thông tin sản phẩm</h3>
+                                    <span class="icon-toogle"><i class="fa fa-angle-down"
+                                                                 aria-hidden="true"></i></span>
+                                </div>
+                                <div class="description-body desc-more" th:text="${product.description}">
+                                    <strong>MÔ TẢ CHI TIẾT:</strong><br>
+                                    <span th:text="${product.description}">Mô tả sản phẩm</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </th:block>
+</th:block>
+
+<script th:src="@{/js/initialization.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/checkout.js}"></script>
+<script th:src="@{/js/toast-message.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="//theme.hstatic.net/200000066564/1001358455/14/slick.min.js?v=118"></script>
+<script>
+    $(document).ready(function () {
+        $('.slider-for').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+            fade: true,
+            asNavFor: '.slider-nav'
+        });
+        $('.slider-nav').slick({
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            asNavFor: '.slider-for',
+            dots: false,
+            centerMode: false,
+            focusOnSelect: true
+        });
+    });
+</script>
+
+</body>
+</html>

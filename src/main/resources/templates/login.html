@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Đăng Nhập</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/98df298cac.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750419936/xkztap7wz2xxzi86flwx.jpg"
+          type="image/png"/>
+    <style>
+        /* Thêm Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+        /* Toàn bộ giao diện */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .login-form {
+            width: 360px;
+            margin: 50px auto;
+            padding: 40px;
+            background-color: #fff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+        }
+
+        .login-form h2 {
+            text-align: center;
+            color: #44693D;
+            font-weight: bold;
+            margin-bottom: 30px;
+            font-size: 26px;
+        }
+
+        .form-control {
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            margin-bottom: 15px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #4CAF50;
+            outline: none;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .form-group a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .form-group a:hover {
+            text-decoration: underline;
+        }
+
+        .form-group .small {
+            color: red;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 576px) {
+            .login-form {
+                padding: 20px;
+                width: 100%;
+            }
+
+            .login-form h2 {
+                font-size: 22px;
+            }
+        }
+
+        .form-group {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group div {
+    font-size: 16px;
+    color: #555;
+    font-weight: 600;
+    margin: 10px 0;
+}
+
+    </style>
+</head>
+<body>
+<th:block th:replace="layout/user-layout :: layout">
+    <th:block th:fragment="pageContent">
+        <div class="login-form">
+            <form th:action="@{/login}" method="post" id="myForm">
+                <h2>Đăng Nhập</h2>
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger" th:text="${param.message}">Thông báo lỗi đăng nhập</div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Email"
+                           required="required">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu"
+                           required="required">
+                    <small id="passwordError" class="small"></small>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn">Đăng Nhập</button>
+                </div>
+            </form>
+            <div class="form-group">
+                <div>-- Hoặc --</div>
+            </div>
+            <p class="text-center"><a th:href="@{/register}">Tạo tài khoản mới</a></p>
+        </div>
+    </th:block>
+</th:block>
+
+<script>
+    document.getElementById('myForm').addEventListener('submit', function (event) {
+        var passwordInput = document.getElementById('password');
+        var passwordError = document.getElementById('passwordError');
+        var password = passwordInput.value;
+        if (password.length < 6) {
+            event.preventDefault();
+            passwordError.textContent = 'Mật khẩu phải có ít nhất 6 ký tự.';
+        } else {
+            passwordError.textContent = '';
+        }
+    });
+</script>
+</body>
+</html>

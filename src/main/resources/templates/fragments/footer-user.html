@@ -1,0 +1,183 @@
+
+<th:block th:fragment="footer">
+    <footer id="footer">
+        <div class="container-fluid">
+            <div class="footer-content">
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        <div class="footer-logo">
+                            <a href="/">
+                                <img src="/assets/img/22537883.png"
+                                     alt="LaLin" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 ">
+                        <div class="ft-contact">
+                            <h3 class="ft-title">
+                                Thông tin liên hệ
+                            </h3>
+                            <div class="ft-contact-address">
+                                        <span class="ft-contact-icon"><svg
+                                                class="svg-inline--fa fa-map-marker-alt fa-w-12" aria-hidden="true"
+                                                data-prefix="fas" data-icon="map-marker-alt" role="img"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
+                                                data-fa-i2svg="">
+                                                <path fill="currentColor"
+                                                      d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z">
+                                                </path>
+                                            </svg><!-- <i class="fas fa-map-marker-alt"></i> --></span>
+                                <div class="ft-contact-detail">
+                                    Hà Nội: FPTU <br>
+                                </div>
+                            </div>
+                            <div class="ft-contact-tel">
+                                        <span class="ft-contact-icon"><svg class="svg-inline--fa fa-phone fa-w-16"
+                                                                           aria-hidden="true" data-prefix="fas" data-icon="phone" role="img"
+                                                                           xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                                                           data-fa-i2svg="">
+                                                <path fill="currentColor"
+                                                      d="M493.397 24.615l-104-23.997c-11.314-2.611-22.879 3.252-27.456 13.931l-48 111.997a24 24 0 0 0 6.862 28.029l60.617 49.596c-35.973 76.675-98.938 140.508-177.249 177.248l-49.596-60.616a24 24 0 0 0-28.029-6.862l-111.997 48C3.873 366.516-1.994 378.08.618 389.397l23.997 104C27.109 504.204 36.748 512 48 512c256.087 0 464-207.532 464-464 0-11.176-7.714-20.873-18.603-23.385z">
+                                                </path>
+                                            </svg><!-- <i class="fas fa-phone"></i> --></span>
+                                <div class="ft-contact-detail">
+                                    Số điện thoại: <a href="tel:098 185 2632">098 185 2632</a>
+                                </div>
+                            </div>
+                            <div class="ft-contact-email">
+                                        <span class="ft-contact-icon"><svg class="svg-inline--fa fa-envelope fa-w-16"
+                                                                           aria-hidden="true" data-prefix="fas" data-icon="envelope" role="img"
+                                                                           xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                                                           data-fa-i2svg="">
+
+<path fill="currentColor"
+      d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z">
+                                                </path>
+                                            </svg><!-- <i class="fas fa-envelope"></i> --></span>
+                                <div class="ft-contact-detail">
+                                    Email: <a href="mailto: lamduyen@gmail.com">  lamduyen@gmail.com</a>
+                                </div>
+                            </div>
+                            <div class="ft-copyrights-openninghrs">
+                                Thời gian mở cửa: Thứ 2 đến Chủ Nhật từ 8h30 đến 22h
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 ">
+
+                        <div class="ft-subscribe">
+                            <h3 class="ft-title">
+                                Đăng ký Email
+                            </h3>
+                            <div class="hsub-wrapper">
+                                <form accept-charset="UTF-8" action="/account/contact" class="contact-form"
+                                      method="post">
+                                    <input name="form_type" type="hidden" value="customer">
+                                    <input name="utf8" type="hidden" value="✓">
+                                    <div class="input-group">
+                                        <input type="email" value="" placeholder="Nhập địa chỉ email của bạn..."
+                                               name="contact[email]" id="Email" class="input-group-field"
+                                               aria-label="email@example.com">
+                                        <input type="hidden" name="contact[tags]" value="newsletter">
+                                        <span class="input-group-btn">
+                                                    <button type="submit" name="subscribe" id="subscribe"
+                                                            value="GỬI">Đăng ký</button>
+                                                </span>
+                                    </div>
+                                    <input id="103de3455d1d49af9ca2eb034bc86952" name="g-recaptcha-response"
+                                           type="hidden"
+                                           value="03AFY_a8UAWRGFv7gXEsV1wvZG1JyXUVNUkwiFC11c4_l7LBH6iYAjs0uFjSuKoMi0XIldtDiUDnqyOs_q1IQfDPgVDS_Vpg39GJW8a9DR-J1pb5O93WzYMvUNky_U-BxtiPys9Zr59HoUamwcnSMDjhl-oafCzm_70hh2SK-cZMEZazQHgT9kdcnIS9yX_ab2OcOD454C3tRGHt9lygAAVQGmyf0LeSUIvfDDr296TFmhl1XsNbiZrulUqyvCRAKbXyMce0058Rj_bKxIHtVzTSBVo33DlqpS3f8NjSmew6eJOyQT8p6ZaMhKjtpBOgANI_6Wq67itZromIzZCADfD9Qc2L5Tk1_U6VeTVGUX_JT_O8Ob4V0iXWcssTadCImviOKARiF39BDqPaejn6Bgn2YQdqNCOdALm3Sobv451qjqpuAYVInbhUXviPRZeftkYKjcJ70Qm6VGAOZ2X6cAkyJ5DPRXXMo-qZwIvQU8_w20TYDvaz4UlBfOE33DtsuNnZZwpryxEzNB">
+                                    <script
+                                            src="https://www.google.com/recaptcha/api.js?render=6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-"></script>
+                                    <script>grecaptcha.ready(function () { grecaptcha.execute('6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-', { action: 'submit' }).then(function (token) { document.getElementById('103de3455d1d49af9ca2eb034bc86952').value = token; }); });</script>
+                                </form>
+                            </div>
+                        </div>
+<!--                        <div class="ft-nav">-->
+<!--                            <ul class="no-bullets">-->
+<!--                                <li>-->
+<!--                                    <a href="/search">Tìm kiếm</a>-->
+<!--                                    <span>/</span>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <a href="https://lalin.vn/pages/chinh-sach-bao-mat-1">Chính sách bảo mật</a>-->
+<!--                                    <span>/</span>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <a href="/pages/chinh-sach-thanh-toan">Chinh sách thanh toán</a>-->
+<!--                                    <span>/</span>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <a href="/pages/chinh-sach-van-chuyen">Chính sách vận chuyển</a>-->
+<!--                                    <span>/</span>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <a href="/pages/chinh-sach-doi-tra">Chính sách đổi hàng</a>-->
+<!--                                    <span>/</span>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <a href="/pages/chinh-sach-xu-ly-khieu-nai">Chính sách xử lý khiếu nại</a>-->
+<!--                                    <span>/</span>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <a href="/pages/chinh-sach-kiem-hang">Chính sách kiểm hàng</a>-->
+<!--                                    <span>/</span>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <a href="/pages/huong-dan-mua-hang">Hướng dẫn mua hàng</a>-->
+<!--                                    <span>/</span>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <a href="/pages/chuong-trinh-cham-soc-khach-hang">Chăm sóc khách hàng</a>-->
+<!--                                </li>-->
+
+
+<!--                            </ul>-->
+<!--                        </div>-->
+                    </div>
+                    <div class="col-md-4 col-sm-4 ">
+
+                        <div class="footer-col-last">
+                            <div class="ft-social">
+                                <h3 class="ft-title">
+                                    Kết nối cùng Lam Duyen
+                                </h3>
+                                <a href="https://www.facebook.com/LamDuyennn" class="fb-icon"
+                                   target="_blank">
+                                    <img
+                                            src="//theme.hstatic.net/200000066564/1001358455/14/icon-facebook.png?v=118" />
+                                </a>
+                                <a href="https://www.tiktok.com/@lam.duyen25?_t=ZS-8xQAsBFRvWs&_r=1"
+                                   class="tiktok-icon" target="_blank">
+                                    <img
+                                            src="//theme.hstatic.net/200000066564/1001358455/14/icon-tiktok.png?v=118" />
+                                </a>
+                            </div>
+<!--                            <a href="http://online.gov.vn/Website/chi-tiet-131217" class="ft_bct"-->
+<!--                               target="_blank">-->
+<!--                                <img src="//theme.hstatic.net/200000066564/1000616945/14/logoSaleNoti.png?v=1135"-->
+<!--                                     width="160px" alt="Đăng ký bộ công thương">-->
+<!--                            </a>-->
+                        </div>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--        <div class="footer-copyrights">-->
+<!--            <div class="wrapper">-->
+<!--                <div class="grid">-->
+<!--                    <div class="grid__item">-->
+<!--                        <div class="ft-copyrights-content text-center">-->
+<!--                            Copyrights © 2020 by <a target="_blank"-->
+<!--                                                    href=""></a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </footer>
+</th:block>

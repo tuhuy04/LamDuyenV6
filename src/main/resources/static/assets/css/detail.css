@@ -1,0 +1,147 @@
+body {
+    font-family: 'Times New Roman', serif;
+    background-size: cover;
+}
+
+.product-title {
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.product-price {
+    font-size: 24px;
+    color: #d60000;
+    font-weight: bold;
+}
+
+.color-option {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 4px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.product-details {
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+}
+
+.btn-custom {
+    border-radius: 0;
+    font-weight: bold;
+}
+
+.related-product {
+    text-align: center;
+    padding: 10px;
+}
+
+.related-product img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.star-rating i {
+    color: gold;
+}
+
+.product-detail-container {
+    margin-top: 20px;
+}
+
+.product-image-column {
+    text-align: center;
+}
+
+.product-image-detail {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-info-column {
+    padding-left: 30px;
+}
+
+.product-title-detail {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.product-artist-detail {
+    font-size: 1.1rem;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.product-price-detail {
+    font-size: 2rem;
+    color: #dc3545;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.product-description-detail {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.product-meta {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.add-to-cart-button {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart-button:hover {
+    background-color: #1e7e34;
+}
+
+.back-to-products {
+    display: inline-block;
+    margin-top: 20px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.back-to-products:hover {
+    text-decoration: underline;
+}
+
+.add-to-cart-form {
+    margin-top: 20px;
+}
+
+.add-to-cart-form label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.add-to-cart-form input[type="number"] {
+    width: 80px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}

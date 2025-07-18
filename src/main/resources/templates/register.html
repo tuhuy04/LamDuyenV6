@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/98df298cac.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750419936/xkztap7wz2xxzi86flwx.jpg"
+          type="image/png"/>
+    <style>
+        /* Thêm Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+        /* Toàn bộ giao diện */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .account-pages {
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+            padding: 30px;
+        }
+
+        /* Card */
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+
+        .card-body {
+            padding: 40px;
+        }
+
+        .text-uppercase.text-center.font-bold.mt-4 {
+            font-size: 28px;
+            color: #44693D;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        #register-form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #4CAF50; /* Sử dụng màu xanh nhạt */
+            outline: none;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        /* Nút đăng ký */
+        button.form-submit {
+            width: 100%;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button.form-submit:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        /* Thông báo */
+        .form-notice, .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .form-notice a, .form-footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .form-notice a:hover, .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 576px) {
+            .account-pages {
+                padding: 15px;
+            }
+
+            .card-body {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="layout/user-layout :: layout">
+    <th:block th:fragment="pageContent">
+        <div class="account-pages">
+            <div class="card">
+                <div class="card-body">
+
+                    <h2 class="text-uppercase text-center font-bold mt-4">ĐĂNG KÝ</h2>
+
+                    <form id="register-form" th:action="@{/save}" method="post">
+                        <div class="form-group">
+                            <label for="name">Họ và tên</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Nhập họ tên">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Nhập email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Địa chỉ</label>
+                            <input type="text" class="form-control" id="address" name="address" placeholder="Địa chỉ">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">SDT</label>
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Số điện thoại">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Mật khẩu</label>
+                            <input type="password" class="form-control" id="password" name="password"
+                                   placeholder="Mật khẩu">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Xác nhận mật khẩu</label>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                                   placeholder="Nhập lại mật khẩu">
+                        </div>
+
+                        <button type="submit" class="form-submit">Đăng ký</button>
+                    </form>
+
+                    <div class="form-notice">
+                        Đã có tài khoản? <a href="/login">Đăng nhập</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </th:block>
+</th:block>
+
+<script>
+    document.getElementById("register-form").addEventListener("submit", function (e) {
+        // Lấy giá trị các trường
+        var fullName = document.getElementById("fullName").value.trim();
+        var email = document.getElementById("email").value.trim();
+        var username = document.getElementById("username").value.trim();
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+        var userType = document.getElementById("userType").value;
+
+        // Kiểm tra các trường bắt buộc
+        if (!fullName || !email || !username || !password || !confirmPassword || !userType) {
+            alert("Vui lòng điền đầy đủ thông tin!");
+            e.preventDefault();
+            return;
+        }
+
+        // Kiểm tra định dạng email
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert("Email không hợp lệ!");
+            e.preventDefault();
+            return;
+        }
+
+        // Kiểm tra mật khẩu có khớp không
+        if (password !== confirmPassword) {
+            alert("Mật khẩu và xác nhận mật khẩu không khớp!");
+            e.preventDefault();
+            return;
+        }
+
+        // Kiểm tra độ dài mật khẩu
+        if (password.length < 6) {
+            alert("Mật khẩu phải có ít nhất 6 ký tự!");
+            e.preventDefault();
+            return;
+        }
+
+        // Nếu qua tất cả kiểm tra, form sẽ được gửi đi
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nhập OTP</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/98df298cac.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750419936/xkztap7wz2xxzi86flwx.jpg" type="image/png"/>
+    <style>
+        /* Import Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+        /* General styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .otp-form {
+            width: 360px;
+            margin: 50px auto;
+            padding: 40px;
+            background-color: #fff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+        }
+
+        .otp-form h2 {
+            text-align: center;
+            color: #44693D;
+            font-weight: bold;
+            margin-bottom: 30px;
+            font-size: 26px;
+        }
+
+        .form-control {
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-align: center;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #4CAF50;
+            outline: none;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .form-group a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .form-group a:hover {
+            text-decoration: underline;
+        }
+
+        .form-group .error-message {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .form-group .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-group .links p {
+            margin: 10px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 576px) {
+            .otp-form {
+                padding: 20px;
+                width: 90%;
+            }
+
+            .otp-form h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="layout/user-layout :: layout">
+    <th:block th:fragment="pageContent">
+        <div class="otp-form">
+            <form th:action="@{/confirm-otp}" method="post" id="otpForm">
+                <h2>Nhập OTP Của Bạn</h2>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="otp" name="otp" placeholder="Nhập OTP 6 chữ số" required="required">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn">Xác Nhận OTP</button>
+                </div>
+                <div class="form-group">
+                    <p class="error-message" th:text="${mess}"></p>
+                </div>
+            </form>
+            <div class="form-group links">
+                <p><a th:href="@{/re-send}">Gửi lại OTP</a></p>
+                <p><a th:href="@{/login}">Đã có tài khoản? Đăng nhập</a></p>
+            </div>
+        </div>
+    </th:block>
+</th:block>
+
+<script>
+    document.getElementById('otpForm').addEventListener('submit', function (event) {
+        var otpInput = document.getElementById('otp');
+        var otp = otpInput.value;
+        if (!/^\d{6}$/.test(otp)) {
+            event.preventDefault();
+            otpInput.nextElementSibling.textContent = 'OTP phải là 6 chữ số.';
+        } else {
+            otpInput.nextElementSibling.textContent = '';
+        }
+    });
+</script>
+</body>
+</html>

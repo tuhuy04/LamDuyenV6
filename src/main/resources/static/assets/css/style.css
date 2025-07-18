@@ -1,0 +1,151 @@
+body {
+    background-image: url('../img/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.btn-outline-secondary {
+    border-color: #ccc;
+    color: #555;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #f8f9fa;
+    border-color: #bbb;
+    color: #333;
+}
+
+header img {
+    /* Điều chỉnh khi cần */
+}
+
+header a {
+    text-decoration: none;
+    color: #333;
+    /* Thêm style khác */
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.9);
+    /* Làm cho card có nền trong suốt hơn để nhìn thấy ảnh nền */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+header nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.3s ease;
+}
+
+header nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #333;
+    transition: width 0.3s ease;
+}
+
+header nav a:hover {
+    color: #000;
+    /* đậm hơn một chút khi hover */
+}
+
+header nav a:hover::after {
+    width: 100%;
+}
+
+nav a {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin: 0 10px;
+    color: #444 !important;
+}
+
+nav a:hover {
+    color: #000 !important;
+}
+
+.carousel-inner img {
+    border-radius: 0;
+    max-height: 600px;
+    object-fit: cover;
+}
+
+section.container {
+    background-color: rgba(255, 255, 255, 0.92);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+section.container h3,
+section.container h4 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 15px;
+}
+
+section.container p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+section.container img {
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.btn-danger,
+.btn-outline-dark {
+    border-radius: 30px;
+    padding: 10px 24px;
+    font-weight: 500;
+}
+
+.btn-danger {
+    background-color: #c62828;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #b71c1c;
+}
+
+.btn-outline-dark:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+    transition: all 0.3s ease;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    padding: 15px;
+    background-size: 50% 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-control-next:hover .carousel-control-next-icon {
+    background-color: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+}

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="vi" th:fragment="layout" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="revisit-after" content="1 day"/>
+    <meta name="HandheldFriendly" content="true">
+    <link rel="shortcut icon" href="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750419936/xkztap7wz2xxzi86flwx.jpg" type="image/png"/>
+    <title>Thời trang thiết kế – Lam Duyên</title>
+    <link rel="canonical" href="https://lalin.vn/"/>
+    <link rel="alternate" href="https://lalin.vn/" hreflang="vi-vn"/>
+    <meta name="keywords" content="LaLin">
+    <meta name="robots" content="index,follow,noodp">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@200;300;400;500;600&display=swap" as="style">
+    <link rel="preload" as="style" href="//theme.hstatic.net/200000066564/1001358455/14/styles.css?v=118">
+    <link rel="preload" href="//theme.hstatic.net/200000066564/1001358455/14/logo.png?v=118" as="image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" th:href="@{/css/lalin.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Saira Condensed', sans-serif;
+            background-color: #F5E8C7;
+            color: #2F4F2F;
+            margin: 0;
+        }
+        #chatbot-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #1976d2;
+            color: white;
+            font-size: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            z-index: 10000;
+        }
+        #chatbot-icon:hover {
+            background-color: #b71c1c;
+            transform: scale(1.1);
+        }
+        #chatbot-container {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 350px;
+            height: 450px;
+            background-color: #1f1f1f;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 10000;
+        }
+        #chatbot-container.hidden {
+            display: none;
+        }
+        #chatbot-header {
+            background-color: #1976d2;
+            color: white;
+            padding: 15px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+        }
+        #close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        #chatbot-body {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        #chatbot-messages {
+            display: flex;
+            flex-direction: column;
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            max-width: 85%;
+        }
+        .message.user {
+            background-color: #1976d2;
+            color: white;
+            align-self: flex-end;
+        }
+        .message.bot {
+            background-color: #333;
+            color: white;
+            align-self: flex-start;
+        }
+        #chatbot-input-container {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #444;
+            background-color: #2c2c2c;
+        }
+        #chatbot-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 10px;
+            background-color: #333;
+            color: white;
+        }
+        #send-btn {
+            margin-left: 10px;
+            padding: 10px 15px;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #send-btn:hover {
+            background-color: #b71c1c;
+        }
+        @media (max-width: 768px) {
+            #chatbot-container {
+                width: 300px;
+                height: 400px;
+                bottom: 70px;
+            }
+        }
+    </style>
+    <link href='//theme.hstatic.net/200000066564/1001358455/14/slick.css?v=118' rel='stylesheet' type='text/css' media='all'/>
+    <link href='//theme.hstatic.net/200000066564/1001358455/14/slick-theme.css?v=118' rel='stylesheet' type='text/css' media='all'/>
+    <link href="//theme.hstatic.net/200000066564/1001358455/14/styles.css?v=118" rel="preload stylesheet" as="style" type="text/css">
+    <link href='//theme.hstatic.net/200000066564/1001358455/14/mixmatch.css?v=118' rel='stylesheet' type='text/css' media='all'/>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.8.36/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.8.36/plugin/customParseFormat.js"></script>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Thời trang thiết kế"/>
+    <meta property="og:image" content="http://theme.hstatic.net/200000066564/1001358455/14/share_fb_home.png?v=118"/>
+    <meta property="og:image:secure_url" content="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750419936/xkztap7wz2xxzi86flwx.jpg"/>
+    <meta property="og:image:alt" content="Thời trang thiết kế"/>
+    <meta property="og:url" content="https://lalin.vn/"/>
+    <meta property="og:site_name" content="LaLin"/>
+    <meta name="description" content=""/>
+    <meta name="google-site-verification" content="nyGhqUtDSCkVQTa8obOQbAiPvqlnzMqVbbkaqqLxQYU"/>
+    <script defer src='https://stats.hstatic.net/beacon.min.js' hrv-beacon-t='200000066564'></script>
+</head>
+
+<body id="lama-theme" class="index">
+<div class="main-body main-index">
+    <div th:replace="fragments/navbar-user :: navbar"></div>
+    <main class="mainContent-theme">
+        <div th:replace="fragments/top-user :: top"></div>
+        <th:block th:insert="~{::pageContent}"></th:block>
+        <div th:replace="fragments/footer-user :: footer"></div>
+    </main>
+    <div class="search-nav">
+        <div class="container-fluid">
+            <div class="search-nav__wrapper">
+                <div class="search-box wpo-wrapper-search">
+                    <form action="/search" class="searchform searchform-categoris ultimate-search">
+                        <div class="wpo-search-inner">
+                            <input type="hidden" name="type" value="product"/>
+                            <input required id="inputSearchAuto" name="q" maxlength="40" autocomplete="off"
+                                   class="searchinput input-search search-input" type="text" size="20"
+                                   placeholder="Tìm kiếm sản phẩm..." aria-label="Search">
+                        </div>
+                        <a href="javascript:void(0)" class="close-search"><img
+                                src="//theme.hstatic.net/200000066564/1001358455/14/ic_close.png?v=118"/></a>
+                    </form>
+                    <div id="ajaxSearchResults" class="smart-search-wrapper ajaxSearchResults" style="display: none">
+                        <div class="resultsContent"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Chatbot HTML -->
+    <div id="chatbot-icon">💬</div>
+    <div id="chatbot-container" class="hidden">
+        <div id="chatbot-header">
+            <span>ChatBot</span>
+            <button id="close-btn">×</button>
+        </div>
+        <div id="chatbot-body">
+            <div id="chatbot-messages"></div>
+        </div>
+        <div id="chatbot-input-container">
+            <input type="text" id="chatbot-input" placeholder="Gõ tin nhắn..." />
+            <button id="send-btn">Gửi</button>
+        </div>
+    </div>
+</div>
+
+<script src="//hstatic.net/0/0/global/option_selection.js"></script>
+<script src="//hstatic.net/0/0/global/api.jquery.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src='//theme.hstatic.net/200000066564/1001358455/14/bc-app-flashsale.js?v=118' type='text/javascript'></script>
+<script src="//theme.hstatic.net/200000066564/1001358455/14/scripts.js?v=118"></script>
+<link href='//theme.hstatic.net/200000066564/1001358455/14/bluecore-gift.css?v=118' rel='stylesheet' type='text/css' media='all'/>
+<link rel='stylesheet' media="screen" href='https://facebookinbox-omni-onapp.haravan.com/facebookinbox/static/stylesheets/box-style.css?v=1586424991330'/>
+<script>
+    // 1. Bộ Q&A thủ công
+    const QA_LIST = [
+      {
+        keywords: [
+          "chất liệu", "may bằng chất liệu gì", "loại vải gì", "vải gì", "lụa", "gấm", "lemur"
+        ],
+        answer: "Mỗi mẫu áo dài trong BST được may từ các chất liệu cao cấp như lụa tơ tằm, gấm truyền thống, tùy thiết kế. Ví dụ, mẫu Lemur thường dùng lụa tơ tằm để giữ phom mềm mại, sang trọng."
+      },
+      {
+        keywords: [
+          "chất liệu có thoáng mát", "mùa hè", "thoáng khí", "thấm hút mồ hôi"
+        ],
+        answer: "Có. Với các mẫu dành cho mùa hè hoặc mặc thường nhật, Lam Duyên ưu tiên vải lụa, nhẹ, thoáng khí, thấm hút mồ hôi tốt."
+      },
+      {
+        keywords: [
+          "chất liệu vải có nhăn", "có dễ bảo quản", "bảo quản", "giặt", "ủi"
+        ],
+        answer: "Một số chất liệu tự nhiên như lụa có thể hơi nhăn nhẹ khi mặc, nhưng mang lại vẻ đẹp mộc mạc, tự nhiên. Tất cả đều dễ ủi và bảo quản – chỉ cần giặt nhẹ tay, phơi mát và ủi ở nhiệt độ thấp."
+      },
+      {
+        keywords: [
+          "co giãn", "người hay di chuyển"
+        ],
+        answer: "Một số thiết kế có pha sợi co giãn nhẹ, giúp người mặc di chuyển dễ dàng, đặc biệt là các mẫu cách tân hoặc phục vụ sự kiện kéo dài."
+      },
+      {
+        keywords: [
+          "giữ phom", "phom dáng cổ điển", "lemur", "lê phổ"
+        ],
+        answer: "Có. Chất liệu được lựa chọn cho dòng Lemur là lụa tơ tằm hoặc gấm mềm, có độ rũ vừa phải, giúp giữ form cổ điển mà vẫn tôn dáng người mặc."
+      },
+      {
+        keywords: [
+          "lụa tơ tằm", "gấm cao cấp", "hồn việt gấm hoa"
+        ],
+        answer: "Có. Một số mẫu trong BST \"Hồn Việt Gấm Hoa\" sử dụng lụa tơ tằm 100% hoặc gấm truyền thống với họa tiết dệt thủ công, thể hiện giá trị văn hóa và đẳng cấp người mặc."
+      },
+      // Màu sắc
+      {
+        keywords: [
+          "màu nào", "màu sắc", "chọn màu", "có những màu nào", "màu theo yêu cầu"
+        ],
+        answer: "Mỗi mẫu có từ 2–4 phiên bản màu chính. Một số mẫu cho phép đặt màu theo yêu cầu nếu khách đặt may riêng hoặc chọn màu trong bảng màu có sẵn."
+      },
+      {
+        keywords: [
+          "hợp với làn da", "da trung bình", "da ngăm", "da trắng", "tone da"
+        ],
+        answer: "Lam Duyên đã nghiên cứu bảng màu sao cho phù hợp với nhiều tone da. Da trắng dễ mặc cả màu trầm và nổi. Da trung bình nên chọn màu đất, xanh rêu, đỏ booc-đô. Da ngăm phù hợp với các tông màu ấm như cam đất, vàng nghệ, tím đậm."
+      },
+      {
+        keywords: [
+          "màu sáng", "màu trầm", "ban ngày", "buổi tối"
+        ],
+        answer: "Có đủ cả hai dòng: màu sáng như trắng ngà, pastel, hồng nude phù hợp ban ngày; màu trầm như tím Huế, xanh than, đỏ rượu hợp sự kiện buổi tối, cưới hỏi."
+      },
+      {
+        keywords: [
+          "màu sắc có bị phai", "phai màu", "giặt bị phai"
+        ],
+        answer: "Không. Tất cả áo được xử lý kỹ lưỡng, dùng chất liệu nhuộm bền màu. Chỉ cần giặt tay với nước lạnh và không ngâm lâu là giữ màu lâu bền."
+      },
+      {
+        keywords: [
+          "phù hợp mặc đám cưới", "lễ hội", "truyền thống", "mặc lễ", "mặc cưới"
+        ],
+        answer: "Các mẫu đỏ, vàng, tím Huế, xanh cổ vịt… là lựa chọn phổ biến cho dịp lễ, cưới hỏi, đặc biệt khi kết hợp với họa tiết dân tộc."
+      },
+      {
+        keywords: [
+          "lemur", "lê phổ", "phối màu", "tinh thần hội họa", "tone lạnh", "trường phái đông dương"
+        ],
+        answer: "Dòng Lemur sử dụng màu sắc theo trường phái hội họa Đông Dương: nhẹ nhàng, tinh tế, mang tính nghệ thuật cao, thường phối theo tone lạnh – trung tính như be, ghi, xanh lam pastel."
+      }
+    ];
+
+    // 2. Hàm tìm câu trả lời phù hợp
+    function findAnswer(userQuestion) {
+      const lowerQ = userQuestion.toLowerCase();
+      for (let qa of QA_LIST) {
+        for (let kw of qa.keywords) {
+          if (lowerQ.includes(kw)) {
+            return qa.answer;
+          }
+        }
+      }
+      return null;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        try {
+            const chatbotContainer = document.getElementById("chatbot-container");
+            const closeBtn = document.getElementById("close-btn");
+            const sendBtn = document.getElementById("send-btn");
+            const chatBotInput = document.getElementById("chatbot-input");
+            const chatbotMessages = document.getElementById("chatbot-messages");
+            const chatbotIcon = document.getElementById("chatbot-icon");
+
+            if (!chatbotContainer || !closeBtn || !sendBtn || !chatBotInput || !chatbotMessages || !chatbotIcon) {
+                console.error("Chatbot elements not found in DOM. Check if #chatbot-icon and #chatbot-container are rendered correctly.");
+                return;
+            }
+
+            chatbotIcon.addEventListener("click", () => {
+                chatbotContainer.classList.remove("hidden");
+                chatbotIcon.style.display = "none";
+            });
+
+            closeBtn.addEventListener("click", () => {
+                chatbotContainer.classList.add("hidden");
+                chatbotIcon.style.display = "flex";
+            });
+
+            sendBtn.addEventListener("click", sendMessage);
+
+            chatBotInput.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") sendMessage();
+            });
+
+            function sendMessage() {
+                const userMessage = chatBotInput.value.trim();
+                if (userMessage) {
+                    appendMessage("user", userMessage);
+                    chatBotInput.value = "";
+                    getBotResponse(userMessage);
+                }
+            }
+
+            function appendMessage(sender, message) {
+                const messageElement = document.createElement("div");
+                messageElement.classList.add("message", sender === "user" ? "user" : "bot");
+                messageElement.textContent = message;
+                chatbotMessages.appendChild(messageElement);
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+
+            async function getBotResponse(userMessage) {
+                // Tìm câu trả lời thủ công trước
+                const answer = findAnswer(userMessage);
+                if (answer) {
+                    appendMessage("bot", answer);
+                    return;
+                }
+
+                // Không có trong bộ Q&A, fallback Gemini API
+                const API_KEY = "AIzaSyDB3MawtKCdFGcstY-DDSmRvMtNrZIQm-g";
+                const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+
+                try {
+                    const response = await fetch(API_URL, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            contents: [
+                                {
+                                    parts: [{ text: userMessage }],
+                                },
+                            ],
+                        }),
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+
+                    if (!data.candidates || !data.candidates.length) {
+                        throw new Error("No response from Gemini API");
+                    }
+
+                    const botMessage = data.candidates[0].content.parts[0].text;
+                    appendMessage("bot", botMessage);
+                } catch (error) {
+                    console.error("Gemini API error:", error);
+                    appendMessage("bot", "Xin lỗi, câu hỏi này nằm ngoài phạm vi hiểu biết của tôi. Vui lòng thử lại.");
+                }
+            }
+        } catch (error) {
+            console.error("Chatbot initialization error:", error);
+        }
+    });
+</script>
+</body>
+</html>
+

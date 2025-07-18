@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="vi" th:fragment="layout" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lam Duyen</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="shortcut icon" href="https://res.cloudinary.com/dnoitd3ju/image/upload/v1750419936/xkztap7wz2xxzi86flwx.jpg"
+          type="image/png"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #e6e1cf;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .checkout {
+            padding: 40px 0;
+            background-color: #e6e1cf;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .checkout__form {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .checkout__form > .row {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .checkout__form .col-lg-6:first-child {
+            flex: 1;
+            min-width: 340px;
+            max-width: 520px;
+        }
+
+        .checkout__form .col-lg-6:last-child {
+            flex: 2.8;
+            min-width: 600px;
+            max-width: 1100px;
+            padding-left: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Thông tin giao hàng --- */
+        .checkout__title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e6e1cf;
+            margin-bottom: 20px;
+        }
+
+        .checkout__input input.input-text {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #f8f8f8;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .input-text:focus {
+            border-color: #5c9ded;
+            outline: none;
+            box-shadow: 0 0 10px rgba(92, 157, 237, 0.2);
+        }
+
+        .checkout__input {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .checkout__input label {
+            font-weight: 500;
+        }
+
+        .checkout__input-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .checkout__input-row .checkout__input {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        /* --- Đơn hàng của bạn --- */
+        .order__title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+        }
+
+        .checkout__order__head-row {
+            display: flex;
+            border-bottom: none;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .checkout__order__head-row .left,
+        .checkout__order__head-row .right {
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .checkout__order__head-row .left {
+            flex: 1.7;
+            text-align: left;
+        }
+
+        .checkout__order__head-row .divider {
+            width: 2px;
+            background: none;
+            margin: 0 22px;
+        }
+
+        .checkout__order__head-row .right {
+            flex: 1;
+            text-align: center;
+        }
+
+        .checkout__order__body {
+            display: flex;
+            flex-direction: column;
+            background: #e6e1cf;
+            position: relative;
+            min-width: 0;
+            border-radius: 7px;
+            border: none;
+        }
+
+        /* Thanh phân cách dọc giữa sản phẩm và tổng tiền bắt đầu từ sản phẩm đầu tiên */
+        .order-body-divider {
+            position: absolute;
+            left: calc((1.7 / (1.7 + 1)) * 100% + 22px);
+            top: 0;
+            width: 1px; /* Mỏng hơn */
+            height: 100%;
+            background: #000 !important; /* Đen */
+            z-index: 0;
+        }
+
+        /* Dòng sản phẩm */
+        .checkout__order__body .product-row {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            margin-bottom: 0;
+            padding: 18px 0;
+            background: transparent;
+        }
+
+        /* Đường ngang giữa các sản phẩm (chỉ bắt đầu từ sản phẩm đầu tiên) */
+        .checkout__order__body .product-row:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px; /* Mỏng hơn */
+            background: #000; /* Đen */
+            z-index: 2;
+        }
+
+        .checkout__order__body .product-row .divider {
+            display: none;
+        }
+
+        .checkout__order__body .left {
+            display: flex;
+            align-items: center;
+            min-width: 0;
+            flex: 1.7;
+        }
+
+        .checkout__order__body img {
+            width: 72px;
+            height: 72px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 18px;
+            flex-shrink: 0;
+            border: 1px solid #000; /* Viền ảnh thành đen */
+        }
+
+        .checkout__order__body .product-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .checkout__order__body .product-name {
+            font-weight: 500;
+            color: #333;
+            font-size: 20px;
+            white-space: normal;
+            overflow-wrap: break-word;
+            word-break: break-word;
+            display: block;
+            line-height: 1.25;
+        }
+
+        .checkout__order__body .product-size {
+            font-size: 15px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .checkout__order__body .product-qty {
+            font-size: 15px;
+            color: #6c4321;
+            font-style: normal;
+            margin-top: 2px;
+        }
+
+        .checkout__order__body .right {
+            flex: 1;
+            text-align: center;
+            font-weight: 600;
+            color: #395c2b;
+            font-size: 20px;
+            white-space: nowrap;
+        }
+
+        .checkout__discount {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #000; /* Đen và mỏng hơn */
+        }
+
+        /* Discount row chỉnh lại input và button nằm cùng hàng */
+        .checkout__discount .discount-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkout__discount .discount-row input[type="text"] {
+            flex: 0 1 200px;
+            max-width: 260px;
+            min-width: 120px;
+            padding: 8px 10px;
+            border: 1px solid #000;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 0;
+            background: #fff;
+        }
+
+        .checkout__discount .discount-row button {
+            flex-shrink: 0;
+            background-color: #B89F6A;
+            color: #fff;
+            padding: 8px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 0;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 576px) {
+            .checkout__discount .discount-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 6px;
+            }
+
+            .checkout__discount .discount-row input[type="text"] {
+                max-width: 100%;
+            }
+        }
+
+        .checkout__total__all {
+            margin-top: 8px;
+        }
+
+        .checkout__total__all li {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #000; /* Đen và mỏng hơn */
+            padding-top: 12px;
+            align-items: center;
+        }
+
+        .checkout__total__all li span {
+            min-width: 180px;
+            text-align: right;
+            display: block;
+        }
+
+        .checkout__total__all li:last-child span {
+            font-size: 22px;
+            color: #395c2b;
+        }
+
+        .checkout__total__all li:last-child {
+            align-items: center;
+        }
+
+        /* --- Phương thức thanh toán (radio) --- */
+        .payment-method-section {
+            margin-top: 22px;
+            margin-bottom: 10px;
+            padding: 18px 0 0 0;
+            border-top: 1px solid #000; /* Đen và mỏng hơn */
+        }
+
+        .payment-method-label {
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .payment-method-options {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+            margin-bottom: 0;
+        }
+
+        .payment-method-options label {
+            font-size: 16px;
+            color: #333;
+            margin-left: 8px;
+            margin-right: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .payment-method-options input[type="radio"] {
+            accent-color: #B89F6A;
+            width: 20px;
+            height: 20px;
+            margin-right: 7px;
+            cursor: pointer;
+        }
+
+        /* --- Đặt hàng button style nhỏ lại và đổi màu --- */
+        .site-btn {
+            background-color: #B89F6A;
+            color: #fff;
+            padding: 10px 0;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 60%;
+            transition: all 0.3s ease;
+            margin: 22px auto 0 auto;
+            display: block;
+            letter-spacing: 1.5px;
+        }
+
+        .site-btn:hover {
+            background-color: #a88b52;
+        }
+
+        #errorMessage {
+            font-size: 16px;
+            color: red;
+        }
+
+        @media (max-width: 1400px) {
+            .container {
+                max-width: 1200px;
+            }
+
+            .checkout__form .col-lg-6:last-child {
+                max-width: 100%;
+                min-width: 0;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .checkout__form {
+                flex-direction: column;
+            }
+
+            .checkout__form > .row {
+                flex-direction: column;
+            }
+
+            .checkout__form .col-lg-6 {
+                max-width: 100%;
+            }
+
+            .checkout__form .col-lg-6:last-child {
+                padding-left: 0;
+            }
+
+            .site-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .checkout__form {
+                padding: 20px;
+            }
+
+            .checkout__title {
+                font-size: 22px;
+            }
+
+            .payment-method-section {
+                padding: 12px 0 0 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .checkout__order__body .product-row {
+                flex-direction: column;
+                align-items: flex-start;
+                min-width: 0;
+            }
+
+            .order-body-divider {
+                display: none;
+            }
+
+            .site-btn {
+                font-size: 16px;
+                padding: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="layout/user-layout :: layout">
+    <th:block th:fragment="pageContent">
+        <section class="checkout spad">
+            <div class="container">
+                <div class="checkout__form">
+                    <form th:action="@{/client/order/checkout}" method="post">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                <h6 class="checkout__title">Thông tin giao hàng</h6>
+                                <div class="checkout__input">
+                                    <label>Họ tên<span>*</span></label>
+                                    <input name="fullname" type="text" class="input-text" required
+                                           th:value="${session.acc.fullName}">
+                                </div>
+                                <div class="checkout__input">
+                                    <label>Quốc gia<span>*</span></label>
+                                    <input name="country" type="text" class="input-text" required>
+                                </div>
+                                <div class="checkout__input">
+                                    <label>Địa chỉ<span>*</span></label>
+                                    <input name="address" type="text" class="input-text" required>
+                                </div>
+                                <div class="checkout__input-row">
+                                    <div class="checkout__input">
+                                        <label>Số điện thoại <span>*</span></label>
+                                        <input name="phone" type="tel" class="input-text" required
+                                               th:value="${session.acc.phone_Number}" pattern="[0-9]{10}">
+                                    </div>
+                                    <div class="checkout__input">
+                                        <label>Email <span>*</span></label>
+                                        <input name="email" type="email" class="input-text" required
+                                               th:value="${session.acc.email}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <h4 class="order__title">Đơn hàng của bạn</h4>
+                                <div class="checkout__order__head-row">
+                                    <div class="left">Sản phẩm</div>
+                                    <div class="divider"></div>
+                                    <div class="right">Tổng số tiền</div>
+                                </div>
+                                <div class="checkout__order__body">
+                                    <div class="order-body-divider"></div>
+                                    <th:block th:each="y : ${listCart}">
+                                        <div class="product-row">
+                                            <div class="left">
+                                                <!-- Nếu có ảnh -->
+                                                <img th:if="${y.product.productImage != null and !#lists.isEmpty(y.product.productImage)}"
+                                                     th:src="@{${y.product.productImage[0].url_Image}}"
+                                                     alt="Ảnh sản phẩm"
+                                                     class="img-fluid" style="max-height: 200px;" />
+
+                                                <!-- Nếu không có ảnh -->
+                                                <img th:unless="${y.product.productImage != null and !#lists.isEmpty(y.product.productImage)}"
+                                                     src="https://hoaigiangshop.com/wp-content/uploads/2019/12/ao-dai-5-a.jpg"
+                                                     alt="Ảnh mặc định"
+                                                     class="img-fluid" style="max-height: 200px;" />
+
+                                                <div class="product-info">
+                                                    <span class="product-name"
+                                                          th:text="${y.product.product_Name}"></span>
+                                                    <span class="product-size"
+                                                          th:text="'size: ' + ${y.size.sizeName}"></span>
+                                                    <span class="product-qty"
+                                                          th:text="'Số lượng: ' + ${y.count}"></span>
+                                                </div>
+                                            </div>
+                                            <div class="right"
+                                                 th:text="${#numbers.formatDecimal(y.product.price * y.count, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></div>
+                                        </div>
+                                    </th:block>
+                                </div>
+                                <!-- Discount row: input và nút cùng một hàng, input nhỏ gọn -->
+                                <div class="checkout__discount">
+                                    <div class="discount-row">
+                                        <input type="text" placeholder="Nhập mã giảm giá">
+                                        <button type="button">Áp dụng</button>
+                                    </div>
+                                </div>
+                                <ul class="checkout__total__all">
+                                    <li>
+                                        Tạm tính:
+                                        <span th:text="${#numbers.formatDecimal(Total, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span>
+                                    </li>
+                                    <li>
+                                        Phí vận chuyển:
+                                        <span>0 VNĐ</span>
+                                    </li>
+                                    <li>
+                                        Tổng cộng:
+                                        <span th:text="${#numbers.formatDecimal(Total, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"
+                                              style="font-size:22px;color:#395c2b;"></span>
+                                    </li>
+                                </ul>
+
+                                <!-- Phương thức thanh toán (radio) bắt đầu ở đây -->
+                                <div class="payment-method-section">
+                                    <label class="payment-method-label">Phương thức thanh toán</label>
+                                    <div class="payment-method-options">
+                                        <label>
+                                            <input type="radio" name="paymentMethod" value="BANK" checked>
+                                            Thanh toán qua ngân hàng
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="paymentMethod" value="COD">
+                                            Thanh toán khi nhận hàng (COD)
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- Kết thúc mục phương thức thanh toán -->
+
+                                <button type="submit" class="site-btn">ĐẶT HÀNG</button>
+                                <div id="errorMessage" style="color: red;"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </th:block>
+</th:block>
+<script th:src="@{/js/initialization.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/checkout.js}"></script>
+<script th:src="@{/js/toast-message.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
